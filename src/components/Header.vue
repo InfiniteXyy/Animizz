@@ -1,23 +1,24 @@
 <template>
-    <el-header type="flex">
-        <el-row class="header">
-            <img class="logo" src="../assets/logo.png" height="35px"/>
-            <el-col :span="4" :offset="18" style="text-align: center">
-                <el-dropdown trigger="click" @command="click_item">
-                    <span class="avatar"></span>
-                    <span style="font-size: 14px; color: #777;">InfiniteXyy</span>
-                    <el-dropdown-menu slot="dropdown">
-                        <el-dropdown-item command='setting'>个人设置</el-dropdown-item>
-                        <el-dropdown-item command='back' divided>退出登录</el-dropdown-item>
-                    </el-dropdown-menu>
-                </el-dropdown>
-            </el-col>
-        </el-row>
-    </el-header>
+<el-header>
+  <el-row>
+    <el-col :offset="2">
+      <el-menu :default-active="activeIndex" mode="horizontal" :router="true" class="menu">
+        <el-menu-item index="explore">浏览</el-menu-item>
+        <el-menu-item index="mine">我的</el-menu-item>
+        <el-menu-item index="setting">帮助</el-menu-item>
+      </el-menu>
+    </el-col>
+  </el-row>
+</el-header>
 </template>
 
 <script>
 export default {
+  data () {
+    return {
+      activeIndex: 'mine'
+    }
+  },
   methods: {
     click_item (command) {
       switch (command) {
@@ -28,21 +29,23 @@ export default {
             path: '/login'
           })
       }
+    },
+    handleSelect () {
+
     }
   }
 }
 </script>
 
-<style>
-.header {
-  display: flex;
-  align-items: center;
-  height: 100%;
-  width: 100%;
+<style scoped>
+.menu {
+  align-self: center
 }
-.el-header {
-  border-bottom: 1px solid rgba(0, 40, 100, 0.06);
+
+.el-menu {
+  border-bottom: 0px;
 }
+
 .avatar {
   width: 2rem;
   height: 2rem;

@@ -19,7 +19,6 @@ export default new Router({
         { path: 'mine', component: Home.components.mine },
         { path: 'setting', component: Home.components.setting },
         { path: 'explore', component: Home.components.explore },
-        { path: 'movies', component: Home.components.movies },
         { path: 'animes', component: Home.components.animes },
         { path: 'timeline', component: Home.components.timeline }
       ]

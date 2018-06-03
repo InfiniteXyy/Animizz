@@ -2,11 +2,10 @@
 <el-row>
   <el-col :span="8" v-for="o in 5" :key="o">
     <el-card class="box-card">
-      <div slot="header" class="clearfix">
+      <div slot="header" style="width: 100%">
         <span>名称</span>
-        <el-dropdown trigger="click" @command="handleCommand">
-          <i class="el-dropdown-link el-icon-setting">
-          </i>
+        <el-dropdown trigger="click" @command="handleCommand" >
+          <i class="el-dropdown-link el-icon-setting" style="float: right"></i>
           <el-dropdown-menu slot="dropdown" >
             <el-dropdown-item command="1">管理列表</el-dropdown-item>
             <el-dropdown-item>设为关注</el-dropdown-item>
@@ -66,23 +65,11 @@ export default {
   .text {
     font-size: 14px;
   }
-
   .item {
     margin-bottom: 18px;
   }
-
-  .clearfix:before,
-  .clearfix:after {
-    display: table;
-    content: "";
-  }
-
-  .clearfix:after {
-    clear: both
-  }
-
   .box-card {
-    margin: 20px
+    margin: 20px;
   }
 
   .el-dropdown-link {

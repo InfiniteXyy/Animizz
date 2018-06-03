@@ -1,23 +1,27 @@
 <template>
 <el-main>
-    <el-tabs v-model="activeName">
-        <el-tab-pane label="任务单" name="first">
-            <tasks></tasks>
+    <el-tabs v-model="activeName" type="border-card">
+        <el-tab-pane label="动态" name="first">
+           <activity></activity>
         </el-tab-pane>
-        <el-tab-pane label="我的关注" name="second">
+        <el-tab-pane label="库" name="second">
+            <library></library>
+        </el-tab-pane>
+        <el-tab-pane label="关注" name="third">
             <myman></myman>
         </el-tab-pane>
-        <el-tab-pane label="阅读历史" name="third">
-            <history></history>
+        <el-tab-pane label="群组" name="fourth">
+            <group></group>
         </el-tab-pane>
     </el-tabs>
 </el-main>
 </template>
 
 <script>
-import tasks from '@/components/Tasks.vue'
+import activity from '@/components/Activity.vue'
 import myman from '@/components/Follow.vue'
-import history from '@/components/History.vue'
+import library from '@/components/Library.vue'
+import group from '@/components/Group.vue'
 
 export default {
   data () {
@@ -29,9 +33,10 @@ export default {
 
   },
   components: {
-    tasks,
+    activity,
     myman,
-    history
+    library,
+    group
   }
 }
 </script>

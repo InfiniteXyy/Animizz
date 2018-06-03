@@ -3,7 +3,7 @@
 <div class="container">
   <el-card shadow="hover" :body-style="{ padding: '0px' }" class="card">
     <div slot="header">
-      <span>注册</span>
+      <b>注册</b>
     </div>
     <el-form :model="account" status-icon :rules="rules" style="padding: 14px;" label-position="left">
       <el-form-item label="账号" prop="email">
