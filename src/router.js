@@ -18,9 +18,13 @@ export default new Router({
       children: [
         { path: 'mine', component: Home.components.mine },
         { path: 'setting', component: Home.components.setting },
-        { path: 'explore', component: Home.components.explore },
-        { path: 'animes', component: Home.components.animes },
-        { path: 'timeline', component: Home.components.timeline }
+        { path: 'explore',
+          component: Home.components.explore,
+          children: [
+            { path: 'all', component: Home.components.explore.components.allAnime },
+            { path: 'anime', component: Home.components.explore.components.anime }
+          ]
+        }
       ]
     }
   ]

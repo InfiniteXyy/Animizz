@@ -1,6 +1,6 @@
 <template>
 <el-main>
-    <el-tabs v-model="activeName" type="border-card">
+    <el-tabs v-model="activeName">
         <el-tab-pane label="动态" name="first">
            <activity></activity>
         </el-tab-pane>
@@ -40,7 +40,3 @@ export default {
   }
 }
 </script>
-
-<style>
-
-</style>

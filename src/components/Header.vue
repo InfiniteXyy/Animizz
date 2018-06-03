@@ -1,22 +1,24 @@
 <template>
 <el-header>
-  <el-row>
-    <el-col :offset="2">
-      <el-menu :default-active="activeIndex" mode="horizontal" :router="true" class="menu">
-        <el-menu-item index="explore">浏览</el-menu-item>
-        <el-menu-item index="mine">我的</el-menu-item>
-        <el-menu-item index="setting">帮助</el-menu-item>
-      </el-menu>
-    </el-col>
-  </el-row>
+  <div class="wrapper">
+
+  <el-menu :default-active="activeIndex" mode="horizontal" :router="true" class="menu">
+    <el-menu-item index="explore">浏览</el-menu-item>
+    <el-menu-item index="mine">我的</el-menu-item>
+    <el-menu-item index="setting">帮助</el-menu-item>
+  </el-menu>
+  <router-link to="/login"><el-button>login</el-button></router-link>
+  </div>
 </el-header>
+
 </template>
 
 <script>
 export default {
   data () {
     return {
-      activeIndex: 'mine'
+      activeIndex: 'mine',
+      dialogTableVisible: false
     }
   },
   methods: {
