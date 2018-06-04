@@ -12,14 +12,14 @@ export default new Router({
   routes: [
     { path: '/', redirect: '/login' },
     { path: '/login', component: Login },
-    { path: '/animation', component: animation },
+    { path: '/animation/:id', component: animation },
     { path: '/register', component: Register },
     {
       path: '/animizz',
       component: Home,
       children: [
         { path: 'mine', component: Home.components.mine },
-        { path: 'setting', component: Home.components.setting },
+        { path: 'group', component: Home.components.group },
         { path: 'explore', component: Home.components.explore }
       ]
     }

@@ -1,10 +1,13 @@
 <template>
 <el-header>
-  <el-menu :default-active="activeIndex" mode="horizontal" :router="true" class="menu">
+  <el-menu style="height: 60px" :default-active="activeIndex" mode="horizontal" :router="true" class="menu">
+    <div class="menu-wrapper" style="float: left; pointer-events: none;">
+      <img src="../assets/logo.png" height="40px">
+    </div>
     <el-menu-item index="explore">浏览</el-menu-item>
     <el-menu-item index="mine">我的</el-menu-item>
-    <el-menu-item index="setting">帮助</el-menu-item>
-    <div class="menu-wrapper">
+    <el-menu-item index="group">群组</el-menu-item>
+    <div class="menu-wrapper" style="float: right">
       <el-dropdown trigger="click" @command="click_item">
         <div class="avatar"></div>
         <el-dropdown-menu slot="dropdown">
@@ -13,8 +16,11 @@
         </el-dropdown-menu>
       </el-dropdown>
     </div>
-    <div class="menu-wrapper">
-      <el-input v-model="search" placeholder="请输入内容">
+    <div class="menu-wrapper" style="float: right; margin: 16px 0px; padding: 0 0">
+      <el-button type="info" icon="el-icon-bell" circle size="mini"></el-button>
+    </div>
+    <div class="menu-wrapper" style="float: right;">
+      <el-input v-model="search" placeholder="Search Animizz">
         <i slot="prefix" class="el-input__icon el-icon-search"></i>
       </el-input>
     </div>
@@ -27,7 +33,7 @@
 export default {
   data () {
     return {
-      activeIndex: 'mine',
+      activeIndex: 'explore',
       dialogTableVisible: false,
       search: ''
     }
@@ -59,17 +65,17 @@ export default {
 .avatar {
   width: 40px;
   height: 40px;
-  background-color: #00a3af;
+  background-size: cover;
+  background-position: top center;
+  background-image: url(http://www.infinitex.cn/assets/avatar.png);
   display: inline-block;
-  vertical-align: bottom;
   border-radius: 50%;
   cursor: pointer;
 }
-
 .menu-wrapper {
   margin: 10px 0;
   padding: 0 20px;
-  float: right;
   white-space: nowrap;
 }
+
 </style>

@@ -1,10 +1,19 @@
 <template>
-<div v-loading='loading'>
-    <el-row :gutter="20">
-        <el-col :span="6" v-for="anime in animes" :key="anime.id">
-              <img :src="bigImg(anime)" @click="handleDetail(anime)" class="imgbutton" height="500px"/>
-        </el-col>
-    </el-row>
+<div v-loading='loading' style="margin: 0 80px; height:800px">
+  <el-row :gutter="40">
+    <el-col :span="6" v-for="anime in animes" :key="anime.id" style="min-width: 300px; max-width: 300px">
+      <el-card :body-style="{ padding: '0px' }" style="margin-bottom:40px">
+        <img :src="bigImg(anime)" class="image" height="370px">
+        <div style="padding: 14px;">
+          <span>{{ title(anime) }}</span>
+          <div class="bottom clearfix">
+            <time class="time">2018-06-04 11:27</time>
+            <el-button type="text" class="button" @click="handleDetail(anime)">查看详情</el-button>
+          </div>
+        </div>
+      </el-card>
+    </el-col>
+  </el-row>
 </div>
 </template>
 
@@ -32,11 +41,7 @@ export default {
     rate: anime => anime.attributes.averageRating,
     handleDetail (anime) {
       this.$router.push({
-        path: '/animation',
-        params: {
-          name: 'anime',
-          dataObj: anime
-        }
+        path: '/animation/' + anime.id
       })
     }
   }
@@ -44,11 +49,33 @@ export default {
 </script>
 
 <style>
-.card {
-  margin-bottom: 30px;
-  display: block;
-}
-.imgbutton {
-  cursor: pointer;
-}
+  .time {
+    font-size: 13px;
+    color: #999;
+  }
+
+  .bottom {
+    margin-top: 13px;
+    line-height: 12px;
+  }
+
+  .button {
+    padding: 0;
+    float: right;
+  }
+
+  .image {
+    width: 100%;
+    display: block;
+  }
+
+  .clearfix:before,
+  .clearfix:after {
+      display: table;
+      content: "";
+  }
+
+  .clearfix:after {
+      clear: both
+  }
 </style>

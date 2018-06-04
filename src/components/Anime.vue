@@ -21,22 +21,25 @@ export default {
       curAnime: null,
       loading: true,
       currentDate: new Date().toDateString(),
-      activeName: 'first',
-      rate: 0
+      activeName: 'first'
+    }
+  },
+  computed: {
+    rate () {
+      return (this.curAnime.attributes.averageRating / 100 * 5).toFixed(2)
     }
   },
   mounted () {
-  },
-  methods: {
-    getParams () {
-      // 取到路由带过来的参数
-      let routerParams = this.$route.params.dataObj
-      // 将数据放在当前组件的数据内
-      this.curAnime = routerParams
-    }
-  },
-  watch: {
-    '$route': 'getParams'
+    let routerParams = this.$route.params.id
+    // 将数据放在当前组件的数据内
+    this.axios.get('/api/edge/anime/' + routerParams)
+      .then(response => {
+        this.curAnime = response.data.data
+        this.loading = false
+      })
+      .catch(function (error) {
+        alert(error)
+      })
   }
 }
 </script>

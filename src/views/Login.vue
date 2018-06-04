@@ -42,7 +42,7 @@ export default {
 
   methods: {
     handleLogin () {
-      this.$router.push({ path: '/animizz/mine' })
+      this.$router.push({ path: '/animizz/explore' })
     }
   }
 }
