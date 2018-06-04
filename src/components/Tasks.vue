@@ -1,6 +1,6 @@
 <template>
 <el-row>
-  <el-col :span="8" v-for="o in 5" :key="o">
+  <el-col :span="8" v-for="o in 15" :key="o">
     <el-card class="box-card">
       <div slot="header" style="width: 100%">
         <span>名称</span>

@@ -18,7 +18,6 @@
 export default {
   data () {
     return {
-      animes: [],
       curAnime: null,
       loading: true,
       currentDate: new Date().toDateString(),
@@ -27,18 +26,17 @@ export default {
     }
   },
   mounted () {
-    this.axios.get('/api/edge/trending/anime')
-      .then(response => {
-        this.animes = response.data.data
-        this.curAnime = this.animes[0]
-        this.rate = Number((this.animes[0].attributes.averageRating / 100 * 5).toFixed(2))
-        this.loading = false
-      })
-      .catch(function (error) {
-        console.log(error)
-      })
   },
   methods: {
+    getParams () {
+      // 取到路由带过来的参数
+      let routerParams = this.$route.params.dataObj
+      // 将数据放在当前组件的数据内
+      this.curAnime = routerParams
+    }
+  },
+  watch: {
+    '$route': 'getParams'
   }
 }
 </script>

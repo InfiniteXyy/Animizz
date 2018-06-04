@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Login from './views/Login.vue'
+import animation from './components/Anime.vue'
 import Register from './views/Register.vue'
 import Home from './views/Home.vue'
 
@@ -11,6 +12,7 @@ export default new Router({
   routes: [
     { path: '/', redirect: '/login' },
     { path: '/login', component: Login },
+    { path: '/animation', component: animation },
     { path: '/register', component: Register },
     {
       path: '/animizz',
@@ -18,13 +20,7 @@ export default new Router({
       children: [
         { path: 'mine', component: Home.components.mine },
         { path: 'setting', component: Home.components.setting },
-        { path: 'explore',
-          component: Home.components.explore,
-          children: [
-            { path: 'all', component: Home.components.explore.components.allAnime },
-            { path: 'anime', component: Home.components.explore.components.anime }
-          ]
-        }
+        { path: 'explore', component: Home.components.explore }
       ]
     }
   ]
