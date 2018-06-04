@@ -38,6 +38,7 @@ export default {
   methods: {
     title: anime => anime.attributes.titles.ja_jp.substr(0, 11),
     bigImg: anime => anime.attributes.posterImage.original,
+    smallImg: anime => anime.attributes.posterImage.small,
     rate: anime => anime.attributes.averageRating,
     handleDetail (anime) {
       this.$router.push({
