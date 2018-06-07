@@ -1,22 +1,16 @@
 <template>
 <el-container>
-    <profile :user='user'></profile>
-    <el-main>
-    <el-tabs v-model="activeName">
-        <el-tab-pane label="动态" name="first">
-           <activity></activity>
-        </el-tab-pane>
-        <el-tab-pane label="库" name="second">
-            <library></library>
-        </el-tab-pane>
-        <el-tab-pane label="关注" name="third">
-            <myman></myman>
-        </el-tab-pane>
-        <el-tab-pane label="群组" name="fourth">
-            <group></group>
-        </el-tab-pane>
-    </el-tabs>
-    </el-main>
+  <profile :user='user'></profile>
+  <el-container>
+    <el-header>
+      <el-menu mode="horizontal" text-color="#000" active-text-color="#00a381" default-active="activity" @select="handleSelect">
+        <el-menu-item index="activity">动态</el-menu-item>
+        <el-menu-item index="library">库</el-menu-item>
+        <el-menu-item index="myman">关注</el-menu-item>
+      </el-menu>
+    </el-header>
+    <el-main><div :is='currentView'></div></el-main>
+  </el-container>
 </el-container>
 </template>
 
@@ -31,11 +25,14 @@ export default {
   data () {
     return {
       activeName: 'first',
-      user: {}
+      user: {},
+      currentView: 'activity'
     }
   },
   methods: {
-
+    handleSelect (view) {
+      this.currentView = view
+    }
   },
   mounted () {
     this.axios.get('/animizz/user/1')
@@ -55,3 +52,14 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.el-main {
+  background-color: white;
+}
+
+.el-header {
+  padding: 0 0;
+  margin: 0 0;
+}
+</style>

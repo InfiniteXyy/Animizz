@@ -25,5 +25,8 @@ export default {
 </script>
 
 <style>
-
+.el-container {
+  background-color: #f5f7fb;
+  height: 100%;
+}
 </style>

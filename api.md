@@ -27,7 +27,8 @@ GET `http://localhost:8080/animizz/user/100001`
         {"id": 100002}
     ], // 关注的用户
     "loc_name": "北京",
-    "status": "I love My Hero Academia" // 个性签名
+    "status": "I love My Hero Academia", // 个性签名
+    "tags": ["child", "adventrue"]
 }
 ```
 **搜索用户**
@@ -45,7 +46,8 @@ POST `http://localhost:8080/animizz/user/`
 ```json
 {
     "email": "727160222@qq.com",
-    "name": "infiniteXyy"
+    "name": "infiniteXyy",
+    "password": "12345"
 }
 ```
 return
@@ -85,4 +87,64 @@ GET `http://localhost:8080/animizz/animation/1`
 }
 ```
 
-### 动态API（未想好）
+### 动态API
+GET `http://localhost:8080/animizz/moment?limit=1&offset=0`
+
+```json
+{
+    "data": [
+      {
+        "username": "xyy",
+        "content": "今天真开心",
+        "time": "2018-05-30 21:12:47"
+      }
+    ]
+}
+```
+### CV API
+GET `http://localhost:8080/animizz/moment?limit=1&offset=0`
+
+```json
+{
+    "data": [
+      {
+        "username": "xyy",
+        "content": "今天真开心",
+        "time": "2018-05-30 21:12:47",
+        "like": 10
+      }
+    ]
+}
+```
+### 剧集 API
+GET `http://localhost:8080/animizz/animation/episode/1`
+
+```json
+{
+    "rate": 10.0,
+    "comments": [{
+      "username": "xyy",
+      "content": "这集真好看",
+      "time": "2018-05-30 21:12:47",
+      "like": 1
+    }]
+}
+```
+
+### CV API
+GET `http://localhost:8080/animizz/cv/1`
+
+```json
+{
+    "name": "村上春树",
+    "like": "10",
+    "views": "123",
+    "animations": [
+      {
+        "name": "我的英雄学院",
+        "character": "杂毛A"
+      }
+    ]
+}
+```
+

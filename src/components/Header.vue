@@ -19,7 +19,7 @@
     <div class="menu-wrapper" style="float: right; margin: 16px 0px; padding: 0 0">
       <el-button type="info" icon="el-icon-bell" circle size="mini"></el-button>
     </div>
-    <div class="menu-wrapper" style="float: right;">
+    <div class="menu-wrapper" style="float: right">
       <el-input v-model="search" placeholder="Search Animizz">
         <i slot="prefix" class="el-input__icon el-icon-search"></i>
       </el-input>
@@ -33,7 +33,7 @@
 export default {
   data () {
     return {
-      activeIndex: 'explore',
+      activeIndex: 'mine',
       dialogTableVisible: false,
       search: ''
     }
@@ -57,9 +57,12 @@ export default {
 </script>
 
 <style scoped>
+.el-header {
+  padding: 0;
+  margin: 0;
+}
 .menu {
   padding: 0 20px;
-
 }
 
 .avatar {
