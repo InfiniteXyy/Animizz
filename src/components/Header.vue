@@ -33,7 +33,7 @@
 export default {
   data () {
     return {
-      activeIndex: 'mine',
+      activeIndex: 'explore',
       dialogTableVisible: false,
       search: ''
     }

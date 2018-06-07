@@ -46,8 +46,8 @@ export default {
 
 .line {
   margin-top: 30px;
-  background-color: #f9f9f9;
-  height: 2px;
+  background-color: #f5f7fb;
+  height: 16px;
   width: 100%;
 }
 

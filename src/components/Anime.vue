@@ -1,12 +1,11 @@
 <template>
-<el-main v-loading="loading" class="container" v-if="curAnime">
+<el-main v-loading="loading" class="container" v-if="anime">
   <div>
-    <img :src="curAnime.attributes.coverImage.large" style="width: 100%">
-    <h2>{{curAnime.attributes.titles.ja_jp}}</h2>
+    <h2>{{anime.attributes.titles.ja_jp}}</h2>
     <el-rate v-model="rate" disabled show-score text-color="#ff9900" allow-half>
     </el-rate>
     <el-tabs v-model="activeName">
-      <el-tab-pane label="简介" name="first">{{curAnime.attributes.synopsis}}</el-tab-pane>
+      <el-tab-pane label="简介" name="first">{{anime.attributes.synopsis}}</el-tab-pane>
       <el-tab-pane label="分集" name="second">分集</el-tab-pane>
       <el-tab-pane label="声优" name="third">声优</el-tab-pane>
       <el-tab-pane label="资源" name="fourth">资源</el-tab-pane>
@@ -18,29 +17,17 @@
 export default {
   data () {
     return {
-      curAnime: null,
-      loading: true,
+      loading: false,
       currentDate: new Date().toDateString(),
       activeName: 'first'
     }
   },
   computed: {
     rate () {
-      return Number((this.curAnime.attributes.averageRating / 100 * 5).toFixed(2))
+      return Number((this.anime.attributes.averageRating / 100 * 5).toFixed(2))
     }
   },
-  mounted () {
-    let routerParams = this.$route.params.id
-    // 将数据放在当前组件的数据内
-    this.axios.get('/api/edge/anime/' + routerParams)
-      .then(response => {
-        this.curAnime = response.data.data
-        this.loading = false
-      })
-      .catch(function (error) {
-        alert(error)
-      })
-  }
+  props: ['anime']
 }
 </script>
 

@@ -4,9 +4,9 @@
     <el-card class="box-card">
       <div slot="header" style="width: 100%">
         <span>名称</span>
-        <el-dropdown trigger="click" @command="handleCommand" >
+        <el-dropdown trigger="click" @command="handleCommand">
           <i class="el-dropdown-link el-icon-setting" style="float: right"></i>
-          <el-dropdown-menu slot="dropdown" >
+          <el-dropdown-menu slot="dropdown">
             <el-dropdown-item command="1">管理列表</el-dropdown-item>
             <el-dropdown-item>设为关注</el-dropdown-item>
             <el-dropdown-item divided>分享</el-dropdown-item>
@@ -17,16 +17,15 @@
         {{'列表内容 ' + o }}
       </div>
     </el-card>
-    <el-dialog title="收货地址" :visible.sync="dialogTableVisible">
-      <el-table :data="gridData">
-        <el-table-column property="date" label="日期" width="150"></el-table-column>
-        <el-table-column property="name" label="姓名" width="200"></el-table-column>
-        <el-table-column property="address" label="地址"></el-table-column>
-      </el-table>
-    </el-dialog>
   </el-col>
+  <el-dialog title="收货地址" :visible.sync="dialogTableVisible">
+    <el-table :data="gridData">
+      <el-table-column property="date" label="日期" width="150"></el-table-column>
+      <el-table-column property="name" label="姓名" width="200"></el-table-column>
+      <el-table-column property="address" label="地址"></el-table-column>
+    </el-table>
+  </el-dialog>
 </el-row>
-
 </template>
 
 <script>
