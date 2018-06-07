@@ -8,7 +8,7 @@
     <el-tabs v-model="activeName">
       <el-tab-pane label="简介" name="first">{{curAnime.attributes.synopsis}}</el-tab-pane>
       <el-tab-pane label="分集" name="second">分集</el-tab-pane>
-      <el-tab-pane label="声优" name="third">神优</el-tab-pane>
+      <el-tab-pane label="声优" name="third">声优</el-tab-pane>
       <el-tab-pane label="资源" name="fourth">资源</el-tab-pane>
     </el-tabs>
   </div>
@@ -26,7 +26,7 @@ export default {
   },
   computed: {
     rate () {
-      return (this.curAnime.attributes.averageRating / 100 * 5).toFixed(2)
+      return Number((this.curAnime.attributes.averageRating / 100 * 5).toFixed(2))
     }
   },
   mounted () {

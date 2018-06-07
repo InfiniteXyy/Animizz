@@ -1,5 +1,7 @@
 <template>
-<el-main>
+<el-container>
+    <profile :user='user'></profile>
+    <el-main>
     <el-tabs v-model="activeName">
         <el-tab-pane label="动态" name="first">
            <activity></activity>
@@ -14,7 +16,8 @@
             <group></group>
         </el-tab-pane>
     </el-tabs>
-</el-main>
+    </el-main>
+</el-container>
 </template>
 
 <script>
@@ -22,21 +25,33 @@ import activity from '@/components/Activity.vue'
 import myman from '@/components/Follow.vue'
 import library from '@/components/Library.vue'
 import group from '@/components/Group.vue'
+import profile from '@/components/Profile.vue'
 
 export default {
   data () {
     return {
-      activeName: 'first'
+      activeName: 'first',
+      user: {}
     }
   },
   methods: {
 
   },
+  mounted () {
+    this.axios.get('/animizz/user/1')
+      .then(response => {
+        this.user = response.data
+      })
+      .catch(function (error) {
+        alert(error)
+      })
+  },
   components: {
     activity,
     myman,
     library,
-    group
+    group,
+    profile
   }
 }
 </script>
