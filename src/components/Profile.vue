@@ -2,7 +2,7 @@
   <el-aside width="320px">
     <div class="avatar"/>
     <div style="text-align:center">
-      <div class="name">{{user.username}}</div>
+      <div class="name">{{user.name}}</div>
       <div class="status">{{user.email}}</div>
     </div>
     <div class="line"></div>

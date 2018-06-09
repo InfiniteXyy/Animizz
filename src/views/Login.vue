@@ -42,7 +42,20 @@ export default {
 
   methods: {
     handleLogin () {
-      this.$router.push({ path: '/animizz/explore' })
+      this.axios.get('/animizz/test/', {params: this.account})
+        .then(response => {
+          let data = response.data
+          if (data === 'not exist') {
+            alert('not exist')
+          } else if (data === 'wrong password') {
+            alert('wrong password!')
+          } else {
+            this.$router.push({ path: '/animizz/explore' })
+          }
+        })
+        .catch(function (error) {
+          alert(error)
+        })
     }
   }
 }

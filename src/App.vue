@@ -4,6 +4,19 @@
   </div>
 </template>
 
+<script>
+export default {
+  methods: {
+    checkLogin () {
+      this.$router.push('/login')
+    }
+  },
+  created () {
+    this.checkLogin()
+  }
+}
+</script>
+
 <style>
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
