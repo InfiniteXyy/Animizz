@@ -8,9 +8,9 @@
 
 namespace app\common\model;
 
-use think\model;
+use think\Model;
 
-class User extends model
+class User extends Model
 {
     protected $pk = 'uid';
 }
