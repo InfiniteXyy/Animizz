@@ -12,10 +12,12 @@
 use think\facade\Route;
 
 Route::group('v1', function () {
+    //用户(不需验证)
     Route::group('user', function () {
-        // 查看信息
-        Route::any('get_info', 'api/UserController/getInfo');
-
-        // 登录
+        //注册
+        Route::any('register', 'api/UserController/register');
+        //登录
+        Route::any('login', 'api/UserController/login');
     });
+
 });
