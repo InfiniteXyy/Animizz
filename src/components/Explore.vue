@@ -22,6 +22,8 @@
 
 <script>
 import anim from './Anime.vue'
+import info from '../utils/global.js'
+import http from '../utils/http.js'
 
 export default {
   data () {
@@ -33,14 +35,9 @@ export default {
     }
   },
   mounted () {
-    this.axios.get('/api/edge/trending/anime', {params: {limit: 40}})
-      .then(response => {
-        this.animes = response.data.data
-        this.loading = false
-      })
-      .catch(function (error) {
-        alert(error)
-      })
+    alert(info.apiToken)
+    const res = http.get('api/edge/trending/anime', {limit: 40})
+    console.log(res)
   },
   components: {
     anim
