@@ -14,8 +14,7 @@
       </el-card>
     </el-col>
     <el-dialog :visible.sync="dialogVisible" v-if="curAnime">
-      <img :src="curAnime.attributes.coverImage.large" width="100%">
-      <anim :anime="curAnime" />
+      <anim :anime="curAnime"/>
     </el-dialog>
   </el-row>
 </div>
@@ -34,7 +33,7 @@ export default {
     }
   },
   mounted () {
-    this.axios.get('/api/edge/trending/anime')
+    this.axios.get('/api/edge/trending/anime', {params: {limit: 40}})
       .then(response => {
         this.animes = response.data.data
         this.loading = false

@@ -1,6 +1,7 @@
 <template>
-<el-main v-loading="loading" class="container" v-if="anime">
+<el-main class="container" v-if="anime">
   <div>
+    <div slot="header"><img :src="anime.attributes.coverImage.tiny" v-loading="true" width="100%"></div>
     <h2>{{anime.attributes.titles.ja_jp}}</h2>
     <el-rate v-model="rate" disabled show-score text-color="#ff9900" allow-half>
     </el-rate>
@@ -17,9 +18,9 @@
 export default {
   data () {
     return {
-      loading: false,
       currentDate: new Date().toDateString(),
-      activeName: 'first'
+      activeName: 'first',
+      imageSrc: ''
     }
   },
   computed: {

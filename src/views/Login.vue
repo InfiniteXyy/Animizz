@@ -5,9 +5,9 @@
             <div slot="header">
                 <b>登录您的账号</b>
             </div>
-            <el-form :model="account" status-icon :rules="rules" style="padding: 14px;" label-position="left">
-                <el-form-item label="账号" prop="email">
-                    <el-input v-model="account.email" auto-complete="off" placeholder="请输入邮箱"></el-input>
+            <el-form :model="account" status-icon style="padding: 14px;" label-position="left">
+                <el-form-item label="账号" prop="phone">
+                    <el-input v-model="account.username" auto-complete="off" placeholder="请输入用户名或手机号"></el-input>
                 </el-form-item>
                 <el-form-item label="密码" prop="password">
                     <el-input type="password" v-model="account.password" auto-complete="off" placeholder="请输入密码"></el-input>
@@ -27,35 +27,19 @@
 </div>
 </template>
 <script>
+import http from '../utils/http.js'
+
 export default {
   data () {
-    var validateEmail = (rule, value, callback) => {
-      if (value === '') callback(new Error('请输入邮箱'))
-      if (value.split('@').length === 2) callback()
-      else callback(new Error('请输入正确的邮箱'))
-    }
     return {
-      account: { email: '', password: '' },
-      rules: { email: [{ validator: validateEmail, trigger: 'blur' }] }
+      account: { username: '', password: '' }
     }
   },
 
   methods: {
-    handleLogin () {
-      this.axios.get('/animizz/test/', {params: this.account})
-        .then(response => {
-          let data = response.data
-          if (data === 'not exist') {
-            alert('not exist')
-          } else if (data === 'wrong password') {
-            alert('wrong password!')
-          } else {
-            this.$router.push({ path: '/animizz/explore' })
-          }
-        })
-        .catch(function (error) {
-          alert(error)
-        })
+    handleLogin: async function () {
+      const res = await http.get('user/login', this.account)
+      console.log(res)
     }
   }
 }

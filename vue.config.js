@@ -6,8 +6,9 @@ module.exports = {
         changeOrigin: true,
         secure: false
       },
-      '/animizz': {
-        target: 'http://127.0.0.1:8080/',
+      '/v1': {
+        target: 'http://api.infinitex.cn/',
+        changeOrigin: true,
         secure: false
       }
     }
