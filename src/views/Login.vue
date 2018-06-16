@@ -33,7 +33,7 @@ import info from '../utils/global.js'
 export default {
   data () {
     return {
-      account: { username: '', password: '' },
+      account: { username: '13524121679', password: '12345678' },
       alertContent: ''
     }
   },

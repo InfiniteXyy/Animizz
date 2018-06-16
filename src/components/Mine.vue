@@ -37,13 +37,7 @@ export default {
     }
   },
   mounted () {
-    this.axios.get('/animizz/user/1')
-      .then(response => {
-        this.user = response.data
-      })
-      .catch(function (error) {
-        alert(error)
-      })
+
   },
   components: {
     activity,

@@ -17,7 +17,8 @@ export default new Router({
       children: [
         { path: 'mine', component: Home.components.mine },
         { path: 'group', component: Home.components.group },
-        { path: 'explore', component: Home.components.explore }
+        { path: 'explore', component: Home.components.explore },
+        { path: 'all', component: Home.components.all }
       ]
     }
   ]

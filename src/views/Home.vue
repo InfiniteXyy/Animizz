@@ -12,6 +12,7 @@ import mheader from '@/components/Header.vue'
 import sidebar from '@/components/Sidebar.vue'
 import mine from '@/components/Mine.vue'
 import explore from '@/components/Explore.vue'
+import all from '@/components/AnimeList.vue'
 
 export default {
   name: 'home',
@@ -19,7 +20,8 @@ export default {
     mheader,
     sidebar,
     mine,
-    explore
+    explore,
+    all
   }
 }
 </script>

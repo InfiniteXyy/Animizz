@@ -4,7 +4,12 @@
     <div class="menu-wrapper" style="float: left; pointer-events: none;">
       <img src="../assets/logo.png" height="40px">
     </div>
-    <el-menu-item index="explore">浏览</el-menu-item>
+    <el-submenu index="explore">
+      <template slot="title">浏览</template>
+      <el-menu-item index="explore">首页</el-menu-item>
+      <el-menu-item index="all">全部</el-menu-item>
+    </el-submenu>
+
     <el-menu-item index="mine">我的</el-menu-item>
     <el-menu-item index="group">群组</el-menu-item>
     <div class="menu-wrapper" style="float: right">
