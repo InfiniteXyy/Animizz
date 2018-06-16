@@ -22,8 +22,5 @@ export default {
 .middle{
     width: 100%;
 }
-.right{
-    width: 200px;
-    height: 300px;
-}
+
 </style>

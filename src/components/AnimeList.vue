@@ -1,7 +1,7 @@
 <template>
-<div v-loading='loading' style="margin: 0 80px; height:800px;" element-loading-background="#f5f7fb">
+<div v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="10" style="margin: 0 80px">
   <el-row :gutter="40">
-    <el-col :span="6" v-for="anime in animes" :key="anime.id" style="min-width: 300px; max-width: 300px">
+    <el-col :span="6" v-for="anime in animes" :key="anime.aid" style="min-width: 300px; max-width: 300px">
       <el-card :body-style="{ padding: '0px' }" style="margin-bottom:40px">
         <img :src="anime.posterUrl" class="image" height="370px">
         <div style="padding: 14px;">
@@ -17,6 +17,7 @@
       <anim :anime="curAnime" />
     </el-dialog>
   </el-row>
+  <div v-loading='busy' style="width: 100%; height:100px;" element-loading-background="#f5f7fb"></div>
 </div>
 </template>
 
@@ -28,9 +29,10 @@ export default {
   data () {
     return {
       animes: [],
-      loading: true,
+      busy: false,
       dialogVisible: false,
-      curAnime: ''
+      curAnime: '',
+      pageNum: 1
     }
   },
   mounted () {
@@ -44,11 +46,17 @@ export default {
       this.dialogVisible = true
       this.curAnime = anime
     },
-    async getData () {
-      const res = await http.get('animation/get_list', {})
-      this.animes = res.data
-      console.log(this.animes)
-      this.loading = false
+    loadMore: function () {
+      this.busy = true
+      setTimeout(this.getData, 2000)
+    },
+    async getData (i) {
+      const res = await http.get('animation/get_list', {page: this.pageNum})
+      this.pageNum += 1
+      for (i of res.data) {
+        this.animes.push(i)
+      }
+      this.busy = false
     }
   }
 }
