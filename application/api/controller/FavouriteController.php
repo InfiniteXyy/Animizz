@@ -10,12 +10,13 @@ namespace app\api\controller;
 use app\common\model\Favourite;
 use think\Controller;
 class FavouriteController extends Controller
-
 {
 
     pubic function createFavourite(){
-        $favourite = new Favourite();
-        $favourite -> addFavourite();
 
+    $favourite = new Favourite($_POST);
+    $favourite -> allowField(['name','description']) ->save();
 }
+
+
 }

@@ -9,9 +9,7 @@ namespace app\common\model;
 class Favourite extends \think\Model
 {
     protected $pk = 'id';
-    public function addFavourite(){
-        $favourite = new Favourite($_POST);
-        $favourite -> allowField(['name','description']) ->save();
-    }
+
+
 
 }
