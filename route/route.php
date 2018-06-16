@@ -24,5 +24,9 @@ Route::group('v1', function () {
     Route::group('animation', function () {
         Route::any('get_list', 'api/AnimationController/getList');
     });
+    //喜爱列表
+    Route::group('favourite', function (){
+        Route::any('createFavourite','api/FavouriteController/createFavourite');
+    });
 
 });
