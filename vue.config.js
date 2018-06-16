@@ -1,11 +1,7 @@
 module.exports = {
   devServer: {
+    port: 8070,
     proxy: {
-      '/api': {
-        target: 'https://kitsu.io/',
-        changeOrigin: true,
-        secure: false
-      },
       '/v1': {
         target: 'http://api.infinitex.cn/',
         changeOrigin: true,

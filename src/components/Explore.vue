@@ -3,9 +3,9 @@
   <el-row :gutter="40">
     <el-col :span="6" v-for="anime in animes" :key="anime.id" style="min-width: 300px; max-width: 300px" >
       <el-card :body-style="{ padding: '0px' }" style="margin-bottom:40px">
-        <img :src="bigImg(anime)" class="image" height="370px">
+        <img :src="anime.posterUrl" class="image" height="370px">
         <div style="padding: 14px;">
-          <span>{{ title(anime) }}</span>
+          <span class="title">{{ anime.title }}</span>
           <div class="bottom clearfix">
             <time class="time">2018-06-04 11:27</time>
             <el-button type="text" class="button" @click="handleDetail(anime)">查看详情</el-button>
@@ -36,26 +36,33 @@ export default {
   },
   mounted () {
     alert(info.apiToken)
-    const res = http.get('api/edge/trending/anime', {limit: 40})
-    console.log(res)
+    this.getData()
   },
   components: {
     anim
   },
   methods: {
-    title: anime => anime.attributes.titles.ja_jp.substr(0, 11),
-    bigImg: anime => anime.attributes.posterImage.original,
-    smallImg: anime => anime.attributes.posterImage.small,
-    rate: anime => anime.attributes.averageRating,
     handleDetail (anime) {
       this.dialogVisible = true
       this.curAnime = anime
+    },
+    async getData () {
+      const res = await http.get('animation/get_list', {})
+      this.animes = res.data
+      console.log(this.animes)
+      this.loading = false
     }
   }
 }
 </script>
 
 <style>
+  .title {
+    max-width: 50px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
   .time {
     font-size: 13px;
     color: #999;
