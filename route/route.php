@@ -20,4 +20,9 @@ Route::group('v1', function () {
         Route::any('login', 'api/UserController/login');
     });
 
+    //动漫
+    Route::group('animation', function () {
+        Route::any('get_list', 'api/AnimationController/getList');
+    });
+
 });
