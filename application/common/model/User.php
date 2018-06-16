@@ -19,6 +19,7 @@ use think\Model;
 class User extends Model
 {
     protected $pk = 'uid';
+    protected $hidden = ['password', 'api_token'];
 
     public function updateToken(){
         $this->api_token = rand_str(24);
