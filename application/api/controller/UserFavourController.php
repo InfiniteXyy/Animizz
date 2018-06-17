@@ -31,4 +31,20 @@ class UserFavourController extends Controller
         s('success', ['list_id' => $favourite->id]);
 
     }
+
+    /**
+     * @param User $user
+     * @param int $page
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     */
+    public function get(User $user, $page = 1)
+    {
+        $user_favorBuilder = (new Favourite());
+        $favourites = $user_favorBuilder->where('owner_id', $user->uid)->page($page, 10)
+            ->select();
+        s('success', $favourites);
+
+    }
 }

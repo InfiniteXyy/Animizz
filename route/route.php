@@ -26,18 +26,29 @@ Route::group('v1', function () {
     });
 
     //收藏（需验证）
-    Route::group('favourite', function (){
-        Route::any('create','api/UserFavourController/create');
+    Route::group('favourite', function () {
+        Route::any('create', 'api/UserFavourController/create');
+        Route::any('get', 'api/UserFavourController/get');
     })->middleware('apiAuth');
 
     //动态（需验证）
-    Route::group('moment',function (){
-        Route::any('create','api/MomentController/create');
+    Route::group('moment', function () {
+        Route::any('create', 'api/MomentController/create');
+        Route::any('delete', 'api/MomentController/delete');
+        Route::any('get', 'api/MomentController/get');
     })->middleware('apiAuth');
 
     //关注（需验证）
-    Route::group('follow',function (){
-        Route::any('create','api/FollowController/create');
+    Route::group('follow', function () {
+        Route::any('create', 'api/FollowController/create');
+        Route::any('delete', 'api/FollowController/delete');
+        Route::any('get', 'api/FollowController/get');
     })->middleware('apiAuth');
 
+    //喜爱的动画（需验证）
+    Route::group('favourite_animation', function () {
+        Route::any('create', 'api/Favourite_AniController/create');
+        Route::any('delete', 'api/Favourite_AniController/delete');
+        Route::any('get', 'api/Favourite_AniController/get');
+    })->middleware('apiAuth');
 });
