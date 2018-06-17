@@ -30,4 +30,9 @@ Route::group('v1', function () {
         Route::any('create','api/UserFavourController/create');
     })->middleware('apiAuth');
 
+    //动态（需验证）
+    Route::group('moment',function (){
+        Route::any('create','api/MomentController/create');
+    })->middleware('apiAuth');
+
 });

@@ -14,11 +14,12 @@ use think\Validate;
 class FavouriteValidate extends Validate
 {
     protected $rule = [
-        'title' => 'require'
+        'title' => 'require|length:1,50'
     ];
 
     protected $message = [
-        'title.require' => 'title cannot be empty'
+        'title.require' => 'title cannot be empty',
+        'title.length' => 'title\'s length can only be 1 to 50',
     ];
 
     protected $scene = [

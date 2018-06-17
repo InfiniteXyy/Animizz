@@ -2,15 +2,18 @@
 /**
  * Created by PhpStorm.
  * User: ZyQin
- * Date: 2018/6/16
- * Time: 15:49
+ * Date: 2018/6/17
+ * Time: 10:07
  */
 
 namespace app\common\model;
+
+use think\Model;
+
 /**
  * @property mixed id
  */
-class Favourite extends \think\Model
+class Moment extends Model
 {
 
 }

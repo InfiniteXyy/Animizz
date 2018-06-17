@@ -22,12 +22,13 @@ class UserFavourController extends Controller
     public function create(User $user)
     {
         $validate = new FavouriteValidate();
-        if (!$validate->scene('add')->check($_POST))
+        if (!$validate->scene('create')->check($_POST))
             e(1, $validate->getError());
         $_POST['owner_id'] = $user->uid;
         $_POST['create_date'] = time();
         $favourite = new Favourite();
         $favourite->allowField(['title', 'owner_id', 'create_date'])->save($_POST);
-        s('success', ['list_id'=>$favourite->id]);
-}
+        s('success', ['list_id' => $favourite->id]);
+
+    }
 }
