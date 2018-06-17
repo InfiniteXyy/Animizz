@@ -8,9 +8,9 @@
 
 namespace app\common\validate;
 
-use think\validate;
+use think\Validate;
 
-class MomentValidate extends validate
+class MomentValidate extends Validate
 {
     protected $rule = [
         'content' => 'require|length:1,140'
