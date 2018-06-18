@@ -15,5 +15,8 @@ use think\Model;
  */
 class Moment extends Model
 {
+    public function user() {
+        return $this->belongsTo('User', 'user_id', 'uid');
+    }
 
 }

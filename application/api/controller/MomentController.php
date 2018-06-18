@@ -43,15 +43,17 @@ class MomentController
 
     /**
      * @param int $page
-     * @param User $user
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\ModelNotFoundException
      * @throws \think\exception\DbException
      */
-    public function get($page = 1, User $user)
+    public function get($page = 1)
     {
         $momentBuilder = (new Moment());
-        $moments = $momentBuilder->where('user_id', $user->uid)->page($page, 10)->select();
-        s('success!', $moments);
+        $moments = $momentBuilder->page($page, 6)->select();
+        foreach ($moments as $moment) {
+            $moment->user;
+        }
+        s('success', $moments);
     }
 }

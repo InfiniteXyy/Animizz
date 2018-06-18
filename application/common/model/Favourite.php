@@ -12,5 +12,5 @@ namespace app\common\model;
  */
 class Favourite extends \think\Model
 {
-
+   //public function
 }

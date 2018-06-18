@@ -35,8 +35,11 @@ Route::group('v1', function () {
     Route::group('moment', function () {
         Route::any('create', 'api/MomentController/create');
         Route::any('delete', 'api/MomentController/delete');
-        Route::any('get', 'api/MomentController/get');
     })->middleware('apiAuth');
+    //动态（不需验证）
+    Route::group('moment', function () {
+        Route::any('get', 'api/MomentController/get');
+    });
 
     //关注（需验证）
     Route::group('follow', function () {
@@ -47,12 +50,12 @@ Route::group('v1', function () {
 
     //喜爱的动画（需验证）
     Route::group('favourite_animation', function () {
-        Route::any('create', 'api/FavouriteAniController/create');
-        Route::any('delete', 'api/FavouriteAniController/delete');
+        Route::any('create', 'api/FavouriteAnimationController/create');
+        Route::any('delete', 'api/FavouriteAnimationController/delete');
     });
     //查看喜爱的动画（不需要验证）
     Route::group('favourite_animation',function (){
-        Route::any('get','api/Favourite_AniController/get');
+        Route::any('get','api/FavouriteAnimationController/get');
     });
     //查看收藏清单（无需验证）
     Route::group('favourite',function (){

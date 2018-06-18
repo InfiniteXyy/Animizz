@@ -9,7 +9,7 @@
 namespace app\api\controller;
 
 use app\common\model\Favourite;
-use app\common\model\Favourite_Animation;
+use app\common\model\FavouriteAnimation;
 use Exception;
 use think\exception\DbException;
 
@@ -18,7 +18,7 @@ class FavouriteAnimationController
 {
     public function create()
     {
-        $favourite_ani = new Favourite_Animation();
+        $favourite_ani = new FavouriteAnimation();
         $favourite_ani->allowField(['favourite_id', 'animation_id'])->save($_POST);
         s('success!', ['list_id' => $favourite_ani->id]);
     }
@@ -30,7 +30,7 @@ class FavouriteAnimationController
      */
     public function delete($id)
     {
-        $favourite_ani = Favourite_Animation::get($id);
+        $favourite_ani = FavouriteAnimation::get($id);
         if (is_null($id))
             e('1', 'No such favourite animation!');
         $favourite_ani->delete();
@@ -41,14 +41,13 @@ class FavouriteAnimationController
 
     /**
      * @param int $page
-     * @param Favourite $favourite
-     * @throws DbException
-     * @throws \think\db\exception\DataNotFoundException
-     * @throws \think\db\exception\ModelNotFoundException
+     * @param $fid
      */
     public function get($page = 1, $fid)
     {
-        $favouriteAniBuilder = (new Favourite_Animation());
+        $favouriteAniBuilder = (new FavouriteAnimation());
+
+
         $fav_anis = $favouriteAniBuilder->where('favourite_id', $fid)
             ->page($page, 10)->select();
         s('success', $fav_anis);
