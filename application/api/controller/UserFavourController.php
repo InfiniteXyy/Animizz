@@ -33,17 +33,18 @@ class UserFavourController extends Controller
     }
 
     /**
-     * @param User $user
-     * @param int $page
+     * @param $uid
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\ModelNotFoundException
      * @throws \think\exception\DbException
      */
-    public function get(User $user, $page = 1)
+    public function get($uid)
     {
         $user_favorBuilder = (new Favourite());
-        $favourites = $user_favorBuilder->where('owner_id', $user->uid)->page($page, 10)
+        $favourites = $user_favorBuilder->where('owner_id', $uid)
             ->select();
+//        foreach ($favourites as $favourite)
+//        $favourite->favouriteanimation;
         s('success', $favourites);
 
     }

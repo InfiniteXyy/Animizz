@@ -14,7 +14,7 @@ use Exception;
 use think\exception\DbException;
 
 
-class FavouriteAniController
+class FavouriteAnimationController
 {
     public function create()
     {
@@ -46,10 +46,10 @@ class FavouriteAniController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\ModelNotFoundException
      */
-    public function get($page = 1, Favourite $favourite)
+    public function get($page = 1, $fid)
     {
-        $favourie_aniBuilder = (new Favourite_Animation());
-        $fav_anis = $favourie_aniBuilder->where('favourite_id', $favourite->id)
+        $favouriteAniBuilder = (new Favourite_Animation());
+        $fav_anis = $favouriteAniBuilder->where('favourite_id', $fid)
             ->page($page, 10)->select();
         s('success', $fav_anis);
     }
