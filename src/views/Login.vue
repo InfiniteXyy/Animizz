@@ -45,6 +45,7 @@ export default {
         this.$message.error(res.msg)
       } else {
         info.apiToken = res.data.api_token
+        info.uid = res.data.uid
         this.$router.push({
           path: '/animizz/explore'
         })

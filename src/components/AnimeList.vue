@@ -7,7 +7,6 @@
         <div style="padding: 14px;">
           <span class="title">{{ anime.title }}</span>
           <div class="bottom clearfix">
-            <time class="time">2018-06-04 11:27</time>
             <el-button type="text" class="button" @click="handleDetail(anime)">查看详情</el-button>
           </div>
         </div>
@@ -48,7 +47,7 @@ export default {
     },
     loadMore: function () {
       this.busy = true
-      setTimeout(this.getData, 2000)
+      setTimeout(this.getData, 500)
     },
     async getData (i) {
       const res = await http.get('animation/get_list', {page: this.pageNum})
@@ -69,10 +68,6 @@ export default {
     white-space: nowrap;
     text-overflow: ellipsis;
   }
-  .time {
-    font-size: 13px;
-    color: #999;
-  }
 
   .bottom {
     margin-top: 13px;
@@ -81,7 +76,7 @@ export default {
 
   .button {
     padding: 0;
-    float: right;
+    float: left;
   }
 
   .image {

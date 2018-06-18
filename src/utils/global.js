@@ -1,4 +1,5 @@
 var info = {
-  apiToken: ''
+  apiToken: '',
+  uid: ''
 }
 export default info
