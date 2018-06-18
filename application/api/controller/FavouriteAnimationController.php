@@ -46,8 +46,6 @@ class FavouriteAnimationController
     public function get($page = 1, $fid)
     {
         $favouriteAniBuilder = (new FavouriteAnimation());
-
-
         $fav_anis = $favouriteAniBuilder->where('favourite_id', $fid)
             ->page($page, 10)->select();
         s('success', $fav_anis);

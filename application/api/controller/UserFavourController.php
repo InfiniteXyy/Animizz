@@ -43,8 +43,11 @@ class UserFavourController extends Controller
         $user_favorBuilder = (new Favourite());
         $favourites = $user_favorBuilder->where('owner_id', $uid)
             ->select();
-//        foreach ($favourites as $favourite)
-//        $favourite->favouriteanimation;
+        foreach ($favourites as $favourite){
+            $favourite->favouriteAnimation;
+            foreach ($favourite['favouriteAnimation'] as $item)
+                $item->animation;
+        }
         s('success', $favourites);
 
     }

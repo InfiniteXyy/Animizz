@@ -12,5 +12,7 @@ namespace app\common\model;
  */
 class Favourite extends \think\Model
 {
-   //public function
+   public function favouriteAnimation(){
+       return $this->hasMany('FavouriteAnimation','favourite_id','id');
+   }
 }

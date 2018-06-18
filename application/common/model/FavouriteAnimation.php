@@ -13,5 +13,7 @@ use think\Model;
 
 class FavouriteAnimation extends Model
 {
-
+   public function animation (){
+       return $this->belongsTo('Animation','animation_id','id')->field('title');
+   }
 }
