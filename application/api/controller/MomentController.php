@@ -50,7 +50,7 @@ class MomentController
     public function get($page = 1)
     {
         $momentBuilder = (new Moment());
-        $moments = $momentBuilder->page($page, 6)->select();
+        $moments = $momentBuilder->order('time', 'desc')->page($page, 6)->select();
         foreach ($moments as $moment) {
             $moment->user;
         }
