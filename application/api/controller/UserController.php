@@ -15,6 +15,7 @@ use app\common\validate\UserValidate;
 use function Sodium\add;
 use think\console\command\Lists;
 use think\Controller;
+use think\process\exception\Timeout;
 
 class UserController extends Controller
 {
@@ -22,7 +23,8 @@ class UserController extends Controller
      * @param $uid
      * @throws \think\exception\DbException
      */
-    public function getProfile($uid) {
+    public function getProfile($uid)
+    {
         $user = User::get($uid);
         if (!$user)
             e(1, 'user not found');
@@ -86,5 +88,53 @@ class UserController extends Controller
         foreach ($follows as $item)
             $item->toUser;
         s('success', $follows);
+    }
+
+    /**
+     * @param User $user
+     * @param $following_id
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     */
+    public function follow(User $user, $following_id)
+    {
+        $userBuilder = new User();
+        $following_record = (new Follow())->where('user_id', $user->uid)
+            ->where('following_id', $following_id)
+            ->select();
+        if (!$following_record->isEmpty()) {
+            e(1, 'you have already followed him');
+        }
+        $_POST['time'] = time();
+        $follow = new Follow();
+        $_POST['user_id'] = $user->uid;
+        $follow->allowField(['user_id', 'following_id', 'time'])->save($_POST);
+        s('success', ['fid' => $follow->id]);
+    }
+
+    /**
+     * @param User $user
+     * @param $following_id
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     */
+    public function unfollow(User $user, $following_id)
+    {
+        $following_record = (new Follow())->where('user_id', $user->uid)
+            ->where('following_id', $following_id)
+            ->select();
+        if ($following_record->isEmpty()) {
+            e(1, 'you have not followed him');
+        }
+        $following_record->pop()->delete();
+        s('success');
+    }
+
+    public function updateInfo(User $user)
+    {
+        $user->status = $_POST['status'];
+        $user->save();
     }
 }

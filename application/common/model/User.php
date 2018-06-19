@@ -16,6 +16,7 @@ use think\Model;
  * @property int last_active
  * @property mixed|string api_token
  * @property mixed password
+ * @property  status
  */
 class User extends Model
 {

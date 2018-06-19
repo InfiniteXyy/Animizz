@@ -25,9 +25,21 @@ Route::group('v1', function () {
         Route::any('login', 'api/UserController/login');
         //信息
         Route::any('profile', 'api/UserController/getProfile');
-        //关注
+        //关注列表
         Route::any('followings', 'api/UserController/getFollowing');
+        //粉丝列表
+        Route::any('fans', 'api/UserController/getFollowed');
     });
+
+    //用户（需验证）
+    Route::group('user', function () {
+        //修改信息
+        Route::any('update', 'api/UserController/updateInfo');
+        //关注
+        Route::any('follow', 'api/UserController/follow');
+        //取消关注
+        Route::any('unfollow', 'api/UserController/unfollow');
+    })->middleware('apiAuth');
 
     //动漫（不需验证）
     Route::group('animation', function () {
@@ -50,17 +62,6 @@ Route::group('v1', function () {
         Route::any('get', 'api/MomentController/get');
     });
 
-    //关注（需验证）
-    Route::group('follow', function () {
-        Route::any('create', 'api/FollowController/create');
-        Route::any('delete', 'api/FollowController/delete');
-    })->middleware('apiAuth');
-
-    //关注（不需验证）
-    Route::group('follow', function () {
-        Route::any('getFollowing', 'api/FollowController/getFollowing');
-        Route::any('getFollowed', 'api/FollowController/getFollowed');
-    });
 
     //喜爱的动画（需验证）
     Route::group('favourite_animation', function () {
