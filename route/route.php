@@ -19,6 +19,8 @@ Route::group('v1', function () {
 
     //用户（不需验证）
     Route::group('user', function () {
+        //获得全部
+        Route::any('all', 'api/UserController/getAll');
         //注册
         Route::any('register', 'api/UserController/register');
         //登录
