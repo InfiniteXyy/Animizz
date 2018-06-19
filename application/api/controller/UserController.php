@@ -92,6 +92,20 @@ class UserController extends Controller
     }
 
     /**
+     * @param $uid
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     */
+    public function getFollowed($uid)
+    {
+        $follows = (new Follow())->where('following_id', $uid)->field('user_id')->select();
+        foreach ($follows as $item)
+            $item->fromUser;
+        s('success', $follows);
+    }
+
+    /**
      * @param User $user
      * @param $following_id
      * @throws \think\db\exception\DataNotFoundException
