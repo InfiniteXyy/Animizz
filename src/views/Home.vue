@@ -20,6 +20,9 @@ export default {
   mounted () {
     const res = http.get('user/profile', {uid: info.uid})
     res.then((data) => {
+      if (data.data.avatar === '') {
+        data.data.avatar = 'http://api.infinitex.cn/res/placeholder.jpg'
+      }
       info.profile = data.data
     })
   },

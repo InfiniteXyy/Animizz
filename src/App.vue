@@ -8,6 +8,11 @@
 export default {
   methods: {
     checkLogin () {
+      // 验证cookie
+      // if (false) {
+      //   this.$router.push('/animizz/explore')
+      //   return
+      // }
       this.$router.push('/login')
     }
   },

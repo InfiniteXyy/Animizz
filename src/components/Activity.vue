@@ -3,7 +3,7 @@
   <el-input type="textarea" :rows="4" placeholder="请输入内容" v-model="textarea">
   </el-input>
   <el-button class="button" size="mini" @click="sendMoment()">发送</el-button>
-  <el-button class="button" size="mini" type="primary" @click="reload()" style="margin-right:10px">刷新</el-button>
+  <el-button class="button" size="mini" type="primary" @click="load()" style="margin-right:10px">刷新</el-button>
   <div id="momentList">
     <div class="moment" v-for="data in moments" :key="data.id">
       <div class="wrapper">
@@ -28,7 +28,8 @@ export default {
   data () {
     return {
       textarea: '',
-      moments: []
+      moments: [],
+      page: 1
     }
   },
   methods: {
@@ -36,9 +37,25 @@ export default {
       let date = new Date(dateValue * 1000)
       return moment(date).calendar()
     },
-    reload () {
+    load () {
+      this.page = 1
       this.moments = []
-      this.getMoments()
+      http.get('moment/get', {}).then(
+        (res) => {
+          for (let i of res.data) {
+            this.moments.push(i)
+          }
+        }
+      )
+    },
+    loadMore () {
+      this.page += 1
+      http.get('moment/get', {page: this.page}).then((res) => {
+        console.log(res)
+        for (let i of res.data) {
+          this.moments.push(i)
+        }
+      })
     },
     sendMoment () {
       let postData = {
@@ -58,19 +75,10 @@ export default {
       }).catch((data) => {
         this.$message.error(res.msg)
       })
-    },
-    async getMoments () {
-      http.post('moment/get', {}).then(
-        (res) => {
-          for (let i of res.data) {
-            this.moments.push(i)
-          }
-        }
-      )
     }
   },
   mounted () {
-    this.getMoments()
+    this.load()
   }
 }
 </script>

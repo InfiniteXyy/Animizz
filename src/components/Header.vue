@@ -14,7 +14,7 @@
     <el-menu-item index="group">群组</el-menu-item>
     <div class="menu-wrapper" style="float: right">
       <el-dropdown trigger="click" @command="click_item">
-        <img class="avatar" :src="myInfo.avatar">
+        <img class="avatar" :src="info.profile.avatar">
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item command='setting'>个人设置</el-dropdown-item>
           <el-dropdown-item command='back' divided>退出登录</el-dropdown-item>
@@ -53,7 +53,7 @@ export default {
     return {
       activeIndex: 'explore',
       search: '',
-      myInfo: info.profile,
+      info: info,
       dialogVisible: false
     }
   },
