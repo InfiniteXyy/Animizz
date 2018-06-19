@@ -29,6 +29,10 @@ Route::group('v1', function () {
         Route::any('followings', 'api/UserController/getFollowing');
         //粉丝列表
         Route::any('fans', 'api/UserController/getFollowed');
+        //标签
+        Route::group('tag',function (){
+            Route::any('get','api/UserController/getTag');
+        });
     });
 
     //用户（需验证）
@@ -39,6 +43,13 @@ Route::group('v1', function () {
         Route::any('follow', 'api/UserController/follow');
         //取消关注
         Route::any('unfollow', 'api/UserController/unfollow');
+       Route::group('tag',function () {
+           //添加标签
+           Route::any('create', 'api/UserController/addTag');
+           //删除标签
+           Route::any('delete', 'api/UserController/deleteTag');
+       }
+    );
     })->middleware('apiAuth');
 
     //动漫（不需验证）

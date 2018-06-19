@@ -10,6 +10,7 @@ namespace app\api\controller;
 
 
 use app\common\model\Follow;
+use app\common\model\UserTag;
 use app\common\model\User;
 use app\common\validate\UserValidate;
 use function Sodium\add;
@@ -99,7 +100,6 @@ class UserController extends Controller
      */
     public function follow(User $user, $following_id)
     {
-        $userBuilder = new User();
         $following_record = (new Follow())->where('user_id', $user->uid)
             ->where('following_id', $following_id)
             ->select();
@@ -138,4 +138,41 @@ class UserController extends Controller
         $user->save();
         s('success');
     }
+
+    public function addTag(User $user,$tag){
+        $userTag = new UserTag();
+        $_POST['user_id'] = $user->uid;
+        $_POST['tag'] = $tag;
+        $userTag->allowField(['user_id','tag'])->save($_POST);
+        s('success!');
+    }
+
+    /**
+     * @param User $user
+     * @param $tag
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     */
+    public function deleteTag(User $user, $tag){
+        $tagToDelete = (new UserTag())->where('user_id',$user->uid)
+    ->where('tag',$tag)->select();
+        if ($tagToDelete->isEmpty()){
+            e(1,'You do not have this tag!');
+        }
+        $tagToDelete->pop()->delete();
+        s('success');
+    }
+
+    /**
+     * @param $uid
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     */
+    public function getTag($uid){
+        $tags =(new UserTag())->where('user_id',$uid)->select();
+        s('success',$tags);
+    }
+
 }
