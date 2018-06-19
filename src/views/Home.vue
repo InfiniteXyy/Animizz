@@ -13,9 +13,16 @@ import sidebar from '@/components/Sidebar.vue'
 import mine from '@/components/Mine.vue'
 import explore from '@/components/Explore.vue'
 import all from '@/components/AnimeList.vue'
-
+import info from '../utils/global.js'
+import http from '../utils/http.js'
 export default {
   name: 'home',
+  mounted () {
+    const res = http.get('user/profile', {uid: info.uid})
+    res.then((data) => {
+      info.profile = data.data
+    })
+  },
   components: {
     mheader,
     sidebar,

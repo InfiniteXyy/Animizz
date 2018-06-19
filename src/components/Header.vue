@@ -14,7 +14,7 @@
     <el-menu-item index="group">群组</el-menu-item>
     <div class="menu-wrapper" style="float: right">
       <el-dropdown trigger="click" @command="click_item">
-        <div class="avatar"></div>
+        <img class="avatar" :src="myInfo.avatar">
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item command='setting'>个人设置</el-dropdown-item>
           <el-dropdown-item command='back' divided>退出登录</el-dropdown-item>
@@ -30,23 +30,38 @@
       </el-input>
     </div>
   </el-menu>
+  <el-dialog
+  title="个人信息"
+  :visible.sync="dialogVisible"
+  width="40%">
+  <profile></profile>
+  <span slot="footer" class="dialog-footer">
+    <el-button @click="dialogVisible = false">取 消</el-button>
+    <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+  </span>
+</el-dialog>
 </el-header>
 
 </template>
 
 <script>
+import info from '../utils/global.js'
+import profileDialog from './ProfileDialog.vue'
+
 export default {
   data () {
     return {
       activeIndex: 'explore',
-      dialogTableVisible: false,
-      search: ''
+      search: '',
+      myInfo: info.profile,
+      dialogVisible: false
     }
   },
   methods: {
     click_item (command) {
       switch (command) {
         case 'setting':
+          this.dialogVisible = true
           break
         default:
           this.$router.push({
@@ -57,6 +72,9 @@ export default {
     handleSelect () {
 
     }
+  },
+  components: {
+    profile: profileDialog
   }
 }
 </script>
@@ -73,9 +91,6 @@ export default {
 .avatar {
   width: 40px;
   height: 40px;
-  background-size: cover;
-  background-position: top center;
-  background-image: url(http://www.infinitex.cn/assets/avatar.png);
   display: inline-block;
   border-radius: 50%;
   cursor: pointer;

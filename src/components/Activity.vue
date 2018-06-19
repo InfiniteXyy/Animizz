@@ -2,14 +2,15 @@
 <div>
   <el-input type="textarea" :rows="4" placeholder="请输入内容" v-model="textarea">
   </el-input>
-  <el-button class="button" size="mini" @click="handleSend">发送</el-button>
+  <el-button class="button" size="mini" @click="sendMoment()">发送</el-button>
+  <el-button class="button" size="mini" type="primary" @click="reload()" style="margin-right:10px">刷新</el-button>
   <div id="momentList">
     <div class="moment" v-for="data in moments" :key="data.id">
       <div class="wrapper">
-        <div class="avatar">
-        </div>
+        <img class="avatar" :src="data.user.avatar">
         <div class="content">
-          {{data.content}}
+          <p>{{data.user.username}}</p>
+          <p class="momentContent">{{data.content}}</p>
           <p class="time">{{formatedDate(data.time)}}</p>
         </div>
       </div>
@@ -31,33 +32,41 @@ export default {
     }
   },
   methods: {
-    handleSend () {
-      this.moments.unshift({
-        content: this.textarea,
-        time: new Date()
-      })
-      this.sendMoment()
-      this.textarea = ''
-    },
     formatedDate (dateValue) {
       let date = new Date(dateValue * 1000)
-      console.log(dateValue)
-
       return moment(date).calendar()
     },
-    async sendMoment () {
+    reload () {
+      this.moments = []
+      this.getMoments()
+    },
+    sendMoment () {
       let postData = {
         uid: info.uid,
         api_token: info.apiToken,
         content: this.textarea
       }
-      await http.post('moment/create', postData)
+
+      const res = http.post('moment/create', postData)
+      res.then((data) => {
+        this.moments.unshift({
+          content: this.textarea,
+          user: info.profile,
+          time: data.data.time
+        })
+        this.textarea = ''
+      }).catch((data) => {
+        this.$message.error(res.msg)
+      })
     },
     async getMoments () {
-      const res = await http.post('moment/get', {})
-      for (let i of res.data) {
-        this.moments.unshift(i)
-      }
+      http.post('moment/get', {}).then(
+        (res) => {
+          for (let i of res.data) {
+            this.moments.push(i)
+          }
+        }
+      )
     }
   },
   mounted () {
@@ -85,20 +94,22 @@ export default {
   width: 40px;
   height: 40px;
   margin: 20px;
-  background-size: cover;
-  background-position: top center;
-  background-image: url(http://www.infinitex.cn/assets/avatar.png);
-  display: inline-block;
   border-radius: 50%;
 }
 
 .content {
-  margin-top: 30px;
   width: 100%;
+  margin-right: 50px;
 }
 
 .time {
   font-size: 14px;
   color: #9aa0ac;
+}
+
+.momentContent {
+  padding: 24px 16px;
+  background: #f7f7f7;
+  border-radius: 12px;
 }
 </style>

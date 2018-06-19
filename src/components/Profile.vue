@@ -1,9 +1,9 @@
 <template>
   <el-aside width="320px">
-    <div class="avatar"/>
+    <img class="avatar" :src="profile.avatar"/>
     <div style="text-align:center">
-      <div class="name">{{user.name}}</div>
-      <div class="status">{{user.email}}</div>
+      <div class="name">{{profile.username}}</div>
+      <div class="status">{{profile.status}}</div>
     </div>
     <div class="line"></div>
     <div style="text-align:center; margin-top: 40px;">
@@ -15,8 +15,18 @@
 </template>
 
 <script>
+import info from '../utils/global.js'
+
 export default {
-  props: ['user']
+  props: ['user'],
+  data () {
+    return {
+      profile: info.profile
+    }
+  },
+  mounted () {
+    console.log(info.profile)
+  }
 }
 </script>
 
@@ -24,13 +34,11 @@ export default {
 .avatar {
   width: 120px;
   height: 120px;
-  background-size: cover;
-  background-position: top center;
   border: 1px solid  #f1f1f1;
+  display: block;
   margin:auto;
   margin-top: 55px;
   margin-bottom: 16px;
-  background-image: url(http://www.infinitex.cn/assets/avatar.png);
   border-radius: 50%;
 }
 
