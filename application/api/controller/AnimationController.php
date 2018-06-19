@@ -50,6 +50,9 @@ class AnimationController
         if (!$animation)
             e(1, 'animation not found');
         $animation->comments;
+        foreach ($animation['comments'] as $item) {
+            $item['user'] = User::get($item['user_id']);
+        }
         s('success', $animation);
     }
 }
