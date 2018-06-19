@@ -23,7 +23,7 @@ class MomentController
         $_POST['time'] = time();
         $moment = new Moment();
         $moment->allowField(['content', 'user_id', 'time'])->save($_POST);
-        s('success', ['list_id' => $moment->id]);
+        s('success', $moment);
     }
 
 

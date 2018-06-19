@@ -79,9 +79,8 @@ class UserController extends Controller
      */
     public function getFollowing($uid)
     {
-        $userBuilder = (new User());
-        $user = $userBuilder->where('uid', $uid)->select();
-        $user->following;
+        $user = User::get($uid);
+        $user->followings();
         s('success', $user);
     }
 }

@@ -32,11 +32,11 @@ class User extends Model
         $this->last_active = time();
     }
 
-    public function following() {
+    public function followings() {
         return $this->hasManyThrough('User',
             'Follow',
             'uid',
-            'following_id',
+            'id',
             'uid');
     }
 }
