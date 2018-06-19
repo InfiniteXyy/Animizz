@@ -38,17 +38,36 @@ class FollowController
     }
 
     /**
-     * @param User $user
+     * @param $uid
      * @param int $page
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\ModelNotFoundException
      * @throws \think\exception\DbException
      */
-    public function get(User $user, $page = 1)
+    public function getFollowed($uid, $page = 1)
     {
         $followBuilder = (new Follow());
-        $follows = $followBuilder->where('following_id', $user->uid)->page($page, 10)
+        $follows = $followBuilder->where('following_id', $uid)->page($page, 10)
             ->select();
+        foreach ($follows as $follow)
+            $follow->followedUser;
         s('success', $follows);
     }
+
+    /**
+     * @param $uid
+     * @param int $page
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     */
+    public function getFollowing($uid, $page = 1)
+    {
+        $follows = (new Follow())->where('followed_id', $uid)->page($page, 10)
+            ->select();
+        foreach ($follows as $follow)
+            $follow->followingUser;
+        s('success', $follows);
+    }
+    
 }

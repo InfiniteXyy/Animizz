@@ -67,4 +67,18 @@ class UserController extends Controller
             'api_token' => $newToken
         ]);
     }
+
+    /**
+     * @param $uid
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     */
+    public function getFollowing($uid)
+    {
+        $userBuilder = (new User());
+        $user = $userBuilder->where('uid', $uid)->select();
+        $user->following;
+        s('success', $user);
+    }
 }

@@ -18,6 +18,8 @@ Route::group('v1', function () {
         Route::any('register', 'api/UserController/register');
         //登录
         Route::any('login', 'api/UserController/login');
+        //关注
+        Route::any('followings', 'api/UserController/getFollowing');
     });
 
     //动漫（不需验证）
@@ -45,8 +47,13 @@ Route::group('v1', function () {
     Route::group('follow', function () {
         Route::any('create', 'api/FollowController/create');
         Route::any('delete', 'api/FollowController/delete');
-        Route::any('get', 'api/FollowController/get');
     })->middleware('apiAuth');
+
+    //关注（不需验证）
+    Route::group('follow', function () {
+        Route::any('getFollowing', 'api/FollowController/getFollowing');
+        Route::any('getFollowed', 'api/FollowController/getFollowed');
+    });
 
     //喜爱的动画（需验证）
     Route::group('favourite_animation', function () {
