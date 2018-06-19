@@ -55,7 +55,12 @@ Route::group('v1', function () {
     //动漫（不需验证）
     Route::group('animation', function () {
         Route::any('get_list', 'api/AnimationController/getList');
+        Route::any('get_comment', 'api/AnimationController/getComment');
     });
+    //动漫（需验证）
+    Route::group('animation', function () {
+        Route::any('add_comment', 'api/AnimationController/addComment');
+    })->middleware('apiAuth');
 
     //收藏（需验证）
     Route::group('favourite', function () {

@@ -10,6 +10,8 @@ namespace app\api\controller;
 
 
 use app\common\model\Animation;
+use app\common\model\Comment;
+use app\common\model\User;
 
 class AnimationController
 {
@@ -32,5 +34,22 @@ class AnimationController
         $animations = $animationBuilder->page($page, 10)
             ->select();
         s('success', $animations);
+    }
+
+    public function addComment(User $user)
+    {
+        $_POST['user_id'] = $user->uid;
+        $comment = new Comment();
+        $comment->allowField(['user_id', 'animation_id', 'content', 'rate'])->save($_POST);
+        s('success', $comment);
+    }
+
+    public function getComment($animation_id)
+    {
+        $animation = Animation::get($animation_id);
+        if (!$animation)
+            e(1, 'animation not found');
+        $animation->comments;
+        s('success', $animation);
     }
 }

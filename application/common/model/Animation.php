@@ -13,5 +13,7 @@ use think\Model;
 
 class Animation extends Model
 {
-
+    public function comments(){
+        return $this->hasMany('Comment','animation_id','id');
+    }
 }
