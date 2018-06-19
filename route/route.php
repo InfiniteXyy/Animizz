@@ -88,9 +88,13 @@ Route::group('v1', function () {
     Route::group('favourite_animation',function (){
         Route::any('get','api/FavouriteAnimationController/get');
     });
-    //查看收藏清单（无需验证）
+    //收藏清单（无需验证）
     Route::group('favourite',function (){
         Route::any('get','api/UserFavourController/get');
+    });
+    //收藏清单（需验证）
+    Route::group('favourite',function (){
+        Route::any('update','api/UserFavourController/setTitle');
     });
 
 });

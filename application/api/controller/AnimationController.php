@@ -38,6 +38,10 @@ class AnimationController
 
     public function addComment(User $user)
     {
+        if (!(new Comment())->where('user_id', $user->uid)
+            ->where('animation_id', $_POST['animation_id'])
+            ->select()->isEmpty())
+            e(1, 'you have commented');
         $_POST['user_id'] = $user->uid;
         $comment = new Comment();
         $comment->allowField(['user_id', 'animation_id', 'content', 'rate'])->save($_POST);
