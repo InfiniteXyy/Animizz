@@ -13,7 +13,7 @@ use think\facade\Route;
 
 Route::group('v1', function () {
     //上传（不需验证）
-    Route::group('upload', function(){
+    Route::group('upload', function () {
         Route::any('image', 'api/UploadController/image');
     });
 
@@ -30,8 +30,8 @@ Route::group('v1', function () {
         //粉丝列表
         Route::any('fans', 'api/UserController/getFollowed');
         //标签
-        Route::group('tag',function (){
-            Route::any('get','api/UserController/getTag');
+        Route::group('tag', function () {
+            Route::any('get', 'api/UserController/getTag');
         });
     });
 
@@ -43,13 +43,13 @@ Route::group('v1', function () {
         Route::any('follow', 'api/UserController/follow');
         //取消关注
         Route::any('unfollow', 'api/UserController/unfollow');
-       Route::group('tag',function () {
-           //添加标签
-           Route::any('create', 'api/UserController/addTag');
-           //删除标签
-           Route::any('delete', 'api/UserController/deleteTag');
-       }
-    );
+        Route::group('tag', function () {
+            //添加标签
+            Route::any('create', 'api/UserController/addTag');
+            //删除标签
+            Route::any('delete', 'api/UserController/deleteTag');
+        }
+        );
     })->middleware('apiAuth');
 
     //动漫（不需验证）
@@ -85,16 +85,16 @@ Route::group('v1', function () {
         Route::any('delete', 'api/FavouriteAnimationController/delete');
     });
     //查看喜爱的动画（不需要验证）
-    Route::group('favourite_animation',function (){
-        Route::any('get','api/FavouriteAnimationController/get');
+    Route::group('favourite_animation', function () {
+        Route::any('get', 'api/FavouriteAnimationController/get');
     });
     //收藏清单（无需验证）
-    Route::group('favourite',function (){
-        Route::any('get','api/UserFavourController/get');
+    Route::group('favourite', function () {
+        Route::any('get', 'api/UserFavourController/get');
     });
     //收藏清单（需验证）
-    Route::group('favourite',function (){
-        Route::any('update','api/UserFavourController/setTitle');
+    Route::group('favourite', function () {
+        Route::any('update', 'api/UserFavourController/setTitle');
     });
 
 });
