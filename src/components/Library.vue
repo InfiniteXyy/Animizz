@@ -22,7 +22,6 @@
     </el-table-column>
   </el-table>
   <el-row style="margin-top: 20px" :gutter="24">
-    <el-col :span="6"><el-button>添加新的动漫</el-button></el-col>
     <el-col :span="6"><el-button>设置表信息</el-button></el-col>
   </el-row>
   <el-dialog title="清单" :visible.sync="dialogVisible" width="24%">

@@ -11,10 +11,7 @@
   <el-row :gutter="12">
     <el-col :span="4" v-for="anime in trendingList" :key="anime.a_id">
       <el-popover placement="right" width="270" trigger="hover" :title="anime.title">
-        <p>{{rate(anime)}}</p>
-          <el-button size='mini' type="success">已经看过</el-button>
-          <el-button size='mini' type="primary">想看</el-button>
-          <el-button size='mini' type="info" @click="showComment(anime)">查看评论</el-button>
+        <popup :data='anime'></popup>
         <el-card shadow="never" :body-style="{ padding: '0px' }" slot="reference">
           <img :src="anime.posterUrl" style="width:100%; margin-bottom: -10px;" @click="clickAnime(anime)" alt="image">
         </el-card>
@@ -41,6 +38,7 @@
 import http from '../utils/http.js'
 import comment from './CommentDialog.vue'
 import anim from './AnimeDialog.vue'
+import popup from './AnimePopup.vue'
 
 export default {
   data () {
@@ -70,14 +68,12 @@ export default {
     showComment (anime) {
       this.curAnime = anime
       this.commentDialogVisible = true
-    },
-    rate (a) {
-      return '评分: ' + (a.rate / 100 * 5).toFixed(2)
     }
   },
   components: {
     comment: comment,
-    anim: anim
+    anim: anim,
+    popup: popup
   }
 }
 </script>

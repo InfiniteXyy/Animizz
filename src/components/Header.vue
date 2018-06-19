@@ -30,23 +30,32 @@
       </el-input>
     </div>
   </el-menu>
-  <el-dialog
-  title="个人信息"
-  :visible.sync="dialogVisible"
-  width="40%">
-  <profile></profile>
-  <span slot="footer" class="dialog-footer">
-    <el-button @click="dialogVisible = false">取 消</el-button>
-    <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
-  </span>
-</el-dialog>
-</el-header>
+  <el-dialog title="个人信息" :visible.sync="dialogVisible" width="60%">
+    <el-form ref="form" :model="form" label-width="120px">
+      <el-form-item label="用户名">
+        <el-input :disabled="true" v-model="form.username"></el-input>
+      </el-form-item>
+      <el-form-item label="手机">
+        <el-input :disabled="true" v-model="form.phone"></el-input>
+      </el-form-item>
+      <el-form-item label="个性签名">
+        <el-input v-model="form.status"></el-input>
+      </el-form-item>
+      <el-form-item label="头像">
 
+      </el-form-item>
+    </el-form>
+    <span slot="footer" class="dialog-footer">
+      <el-button @click="dialogVisible = false">取 消</el-button>
+      <el-button type="primary" @click="handleUpdate">确 定</el-button>
+    </span>
+  </el-dialog>
+</el-header>
 </template>
 
 <script>
 import info from '../utils/global.js'
-import profileDialog from './ProfileDialog.vue'
+import http from '../utils/http.js'
 
 export default {
   data () {
@@ -54,13 +63,17 @@ export default {
       activeIndex: 'explore',
       search: '',
       info: info,
-      dialogVisible: false
+      dialogVisible: false,
+      form: { }
     }
   },
   methods: {
     click_item (command) {
       switch (command) {
         case 'setting':
+          this.form.username = info.profile.username
+          this.form.phone = info.profile.phone
+          this.form.status = info.profile.status
           this.dialogVisible = true
           break
         default:
@@ -71,10 +84,18 @@ export default {
     },
     handleSelect () {
 
+    },
+    handleUpdate () {
+      let postParam = {
+        status: this.form.status,
+        uid: info.uid,
+        api_token: info.apiToken
+      }
+      http.post('user/update', postParam).then(() => {
+        info.profile.status = this.form.status
+      })
+      this.dialogVisible = false
     }
-  },
-  components: {
-    profile: profileDialog
   }
 }
 </script>
@@ -100,5 +121,7 @@ export default {
   padding: 0 20px;
   white-space: nowrap;
 }
-
+.el-form-item {
+  max-width: 80%;
+}
 </style>

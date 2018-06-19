@@ -9,7 +9,7 @@
       <div class="wrapper">
         <img class="avatar" :src="data.user.avatar">
         <div class="content">
-          <p>{{data.user.username}}</p>
+          <b><p class="user">{{data.user.username}}</p></b>
           <p class="momentContent">{{data.content}}</p>
           <p class="time">{{formatedDate(data.time)}}</p>
         </div>
@@ -108,6 +108,11 @@ export default {
 .content {
   width: 100%;
   margin-right: 50px;
+}
+
+.user {
+  font-size: 13px;
+  color: #343a40;
 }
 
 .time {
