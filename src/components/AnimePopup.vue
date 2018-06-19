@@ -1,7 +1,8 @@
 <template>
 <div>
   <p>{{rate(data)}}</p>
-  <el-button size='mini' type="success">已经看过</el-button>
+  <el-button size='mini' type="success">看过</el-button>
+  <el-button size='mini' type="info">正在</el-button>
   <el-button size='mini' type="primary">想看</el-button>
 </div>
 </template>

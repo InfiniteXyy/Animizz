@@ -42,7 +42,6 @@
         <el-input v-model="form.status"></el-input>
       </el-form-item>
       <el-form-item label="头像">
-
       </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">

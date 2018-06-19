@@ -5,7 +5,7 @@
     <el-header>
       <el-menu mode="horizontal" text-color="#000" active-text-color="#00a381" default-active="activity" @select="handleSelect">
         <el-menu-item index="activity">动态</el-menu-item>
-        <el-menu-item index="library">库</el-menu-item>
+        <el-menu-item index="library">清单</el-menu-item>
         <el-menu-item index="myman">关注</el-menu-item>
       </el-menu>
     </el-header>
@@ -15,7 +15,13 @@
       </keep-alive>
     </el-main>
   </el-container>
+
   <div class="recommand">
+    <h1 style="margin:16px">用户列表</h1>
+    <div v-for="single in userList" :key="single.id" style="height: 80px">
+      <img class="avatar" :src="single.avatar">
+      <b class="username"><span>{{single.username}}</span></b>
+    </div>
   </div>
 </el-container>
 </template>
@@ -26,22 +32,29 @@ import myman from '@/components/Follow.vue'
 import library from '@/components/Library.vue'
 import group from '@/components/Group.vue'
 import profile from '@/components/Profile.vue'
+import http from '../utils/http.js'
 
 export default {
   data () {
     return {
       activeName: 'first',
       user: {},
+      userList: [],
       currentView: 'activity'
     }
   },
   methods: {
     handleSelect (view) {
       this.currentView = view
+    },
+    loadUser () {
+      http.get('user/all', {}).then((res) => {
+        this.userList = res.data
+      })
     }
   },
   mounted () {
-
+    this.loadUser()
   },
   components: {
     activity,
@@ -68,4 +81,18 @@ export default {
     background: white;
     margin-left: 20px;
   }
+  .avatar {
+  width: 40px;
+  height: 40px;
+  margin-top: 20px;
+  margin: 0 16px;
+  border-radius: 50%;
+}
+.username {
+  font-size: 17px;
+  display: flex;
+  float: right;
+  margin-top: 15px;
+  margin-right: 50px;
+}
 </style>

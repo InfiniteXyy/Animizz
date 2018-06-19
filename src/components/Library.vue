@@ -9,20 +9,14 @@
       <template slot-scope="scope">
         <el-row :gutter="20">
         <el-col :span="6">
-        <el-button
-          size="mini"
-          @click="handleEdit(scope.$index, scope.row)">设定</el-button></el-col>
-          <el-col :span="6">
-        <el-button
-          size="mini"
-          type="danger"
-          @click="handleDelete(scope.$index, scope.row)">删除</el-button></el-col>
-          </el-row>
+        <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button></el-col>
+        </el-row>
       </template>
     </el-table-column>
   </el-table>
   <el-row style="margin-top: 20px" :gutter="24">
-    <el-col :span="6"><el-button>设置表信息</el-button></el-col>
+    <el-col :span="6"><el-button @click="setDialogVisible = true">设置表信息</el-button></el-col>
+    <el-col :span="6"><el-button type="primary" @click="loadList()">刷新</el-button></el-col>
   </el-row>
   <el-dialog title="清单" :visible.sync="dialogVisible" width="24%">
     <el-select v-model="tempFavourite" placeholder="请选择">
@@ -31,6 +25,17 @@
     </el-select>
     <span slot="footer" class="dialog-footer">
       <el-button type="primary" @click="handleSelect">确 定</el-button>
+    </span>
+  </el-dialog>
+
+  <el-dialog title="设置" :visible.sync="setDialogVisible" width="30%">
+    <el-form ref="listForm" :model="listForm" label-width="120px">
+      <el-form-item label="表名">
+        <el-input v-model="listForm.title"></el-input>
+      </el-form-item>
+    </el-form>
+    <span slot="footer" class="dialog-footer">
+      <el-button type="primary" @click="updateTable">确 定</el-button>
     </span>
   </el-dialog>
 </div>
@@ -46,7 +51,9 @@ export default {
       favourList: [],
       curFavourite: {title: '加载中...', favouriteAnimation: []},
       tempFavourite: '',
-      dialogVisible: false
+      dialogVisible: false,
+      setDialogVisible: false,
+      listForm: {title: ''}
     }
   },
   methods: {
@@ -60,11 +67,46 @@ export default {
         }
       }
     },
-    async getList () {
-      const res = await http.get('favourite/get', {uid: info.uid})
-      this.favourList = res.data
-      this.tempFavourite = res.data[0].title
-      this.handleSelect()
+    handleDelete (index, anime) {
+      console.log(anime)
+      http.post('favourite_animation/delete', {
+        uid: info.uid,
+        api_token: info.apiToken,
+        id: anime.id
+      }).then((res) => {
+        this.loadList()
+      })
+    },
+    getList () {
+      http.get('favourite/get', {uid: info.uid}).then((res) => {
+        this.favourList = res.data
+        this.tempFavourite = res.data[0].title
+        this.handleSelect()
+      })
+    },
+    loadList () {
+      http.get('favourite/get', {uid: info.uid}).then((res) => {
+        this.favourList = res.data
+        this.handleSelect()
+      })
+    },
+    updateTable () {
+      this.setDialogVisible = false
+      http.post('favourite/update', {
+        uid: info.uid,
+        api_token: info.apiToken,
+        id: this.curFavourite.id,
+        title: this.listForm.title
+      }).then((res) => {
+        if (res.code === 200) {
+          this.$notify({
+            title: '成功',
+            message: '修改为' + res.data.title,
+            type: 'success'
+          })
+          this.getList()
+        }
+      })
     }
   },
   mounted () {
@@ -98,4 +140,5 @@ export default {
   padding-top: 10px;
   text-align: left;
 }
+
 </style>

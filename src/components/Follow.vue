@@ -5,7 +5,7 @@
     <img class="avatar" :src="user.toUser.avatar">
     <b><p class="username">{{user.toUser.username}}</p></b>
     <p class="status">{{status(user.toUser.status)}}</p>
-    <span id="cancelBtn"><b>取消关注</b></span>
+    <span id="cancelBtn" @click="unfollow(user)"><b>取消关注</b></span>
   </div>
 </div>
 </template>
@@ -31,6 +31,16 @@ export default {
         return '该用户没有设置个性签名'
       }
       return '“' + data + '”'
+    },
+    unfollow (data) {
+      http.post('user/unfollow', {
+        uid: info.uid,
+        api_token: info.apiToken,
+        following_id: data.following_id
+      }).then((res) => {
+        this.$message({ message: res.msg })
+        this.loadFollowings()
+      })
     }
   },
   mounted () {
