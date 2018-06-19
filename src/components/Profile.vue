@@ -19,6 +19,7 @@
 
 <script>
 import info from '../utils/global.js'
+import http from '../utils/http.js'
 
 export default {
   props: ['user'],
@@ -31,11 +32,28 @@ export default {
     }
   },
   mounted () {
-    console.log(info.profile)
+    http.get('user/tag/get', {uid: info.uid}).then((res) => {
+      for (let i of res.data) {
+        this.dynamicTags.push(this.renderTag(i.tag))
+      }
+    })
   },
   methods: {
     handleClose (tag) {
       this.dynamicTags.splice(this.dynamicTags.indexOf(tag), 1)
+      let postParam = {
+        uid: info.uid,
+        api_token: info.apiToken,
+        tag: tag.value
+      }
+
+      http.post('user/tag/delete', postParam).then((res) => {
+        this.$notify({
+          title: '成功',
+          message: '删除了一个TAG',
+          type: 'success'
+        })
+      })
     },
     showInput () {
       this.inputVisible = true
@@ -43,30 +61,49 @@ export default {
         this.$refs.saveTagInput.$refs.input.focus()
       })
     },
+    renderTag (content) {
+      let type = ''
+      switch (content.hashCode() % 5) {
+        case 0:
+          type = ''
+          break
+        case 1:
+          type = 'success'
+          break
+        case 2:
+          type = 'info'
+          break
+        case 3:
+          type = 'warning'
+          break
+        case 4:
+          type = 'danger'
+          break
+      }
+      return {
+        type: type,
+        value: content
+      }
+    },
     handleInputConfirm () {
       let inputValue = this.inputValue
       if (this.dynamicTags.indexOf(inputValue) !== -1) {
         this.$message.error('该标签已经加入了')
       } else if (inputValue) {
-        let type = ''
-        switch (inputValue.hashCode() % 5) {
-          case 0:
-            type = ''
-            break
-          case 1:
-            type = 'success'
-            break
-          case 2:
-            type = 'info'
-            break
-          case 3:
-            type = 'warning'
-            break
-          case 4:
-            type = 'danger'
-            break
+        this.dynamicTags.push(this.renderTag(inputValue))
+        let postParam = {
+          uid: info.uid,
+          api_token: info.apiToken,
+          tag: inputValue
         }
-        this.dynamicTags.push({type: type, value: inputValue})
+
+        http.post('user/tag/create', postParam).then((res) => {
+          this.$notify({
+            title: '成功',
+            message: '增加了一个TAG',
+            type: 'success'
+          })
+        })
       }
       this.inputVisible = false
       this.inputValue = ''
@@ -106,7 +143,7 @@ export default {
 
 .el-tag+.el-tag {
   margin-left: 10px;
-  margin-bottom: 4px;
+  margin-bottom: 10px;
 }
 
 .button-new-tag {

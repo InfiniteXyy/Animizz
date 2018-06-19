@@ -24,10 +24,6 @@
   <b class="title">我的关注
     <span class="sub-title">More</span>
   </b>
-
-  <el-dialog :visible.sync="commentDialogVisible" v-if="curAnime" title="评论">
-      <comment :anime="curAnime" />
-  </el-dialog>
   <el-dialog :visible.sync="animeDialogVisible" v-if="curAnime">
       <anim :anime="curAnime" />
   </el-dialog>
@@ -36,7 +32,6 @@
 
 <script>
 import http from '../utils/http.js'
-import comment from './CommentDialog.vue'
 import anim from './AnimeDialog.vue'
 import popup from './AnimePopup.vue'
 
@@ -64,14 +59,9 @@ export default {
     clickAnime (anime) {
       this.curAnime = anime
       this.animeDialogVisible = true
-    },
-    showComment (anime) {
-      this.curAnime = anime
-      this.commentDialogVisible = true
     }
   },
   components: {
-    comment: comment,
     anim: anim,
     popup: popup
   }
