@@ -12,6 +12,11 @@
 use think\facade\Route;
 
 Route::group('v1', function () {
+    //上传（不需验证）
+    Route::group('upload', function(){
+        Route::any('image', 'api/UploadController/image');
+    });
+
     //用户（不需验证）
     Route::group('user', function () {
         //注册
