@@ -136,5 +136,6 @@ class UserController extends Controller
     {
         $user->status = $_POST['status'];
         $user->save();
+        s('success');
     }
 }
