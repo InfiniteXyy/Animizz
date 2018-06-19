@@ -13,9 +13,12 @@ use think\Model;
  */
 class Follow extends Model{
    public function followedUser(){
-       return $this->hasMany('User','uid','followed_id');
+       return $this->hasMany('User','uid','user_id');
    }
     public function followingUser(){
-        return $this->hasMany('User','uid','following_id');
+        return $this->hasMany('User','uid','user_id');
+    }
+    public function toUser() {
+       return $this->belongsTo('User', 'following_id', 'uid')->field('username, avatar, status');
     }
 }

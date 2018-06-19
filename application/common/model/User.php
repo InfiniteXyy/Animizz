@@ -8,6 +8,7 @@
 
 namespace app\common\model;
 
+use think\Db;
 use think\Model;
 
 /**
@@ -30,13 +31,5 @@ class User extends Model
 
     public function updateLastActive(){
         $this->last_active = time();
-    }
-
-    public function followings() {
-        return $this->hasManyThrough('User',
-            'Follow',
-            'uid',
-            'id',
-            'uid');
     }
 }

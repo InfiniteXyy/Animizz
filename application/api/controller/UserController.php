@@ -9,8 +9,11 @@
 namespace app\api\controller;
 
 
+use app\common\model\Follow;
 use app\common\model\User;
 use app\common\validate\UserValidate;
+use function Sodium\add;
+use think\console\command\Lists;
 use think\Controller;
 
 class UserController extends Controller
@@ -79,8 +82,9 @@ class UserController extends Controller
      */
     public function getFollowing($uid)
     {
-        $user = User::get($uid);
-        $user->followings();
-        s('success', $user);
+        $follows = (new Follow())->where('user_id', $uid)->field('following_id')->select();
+        foreach ($follows as $item)
+            $item->toUser;
+        s('success', $follows);
     }
 }
