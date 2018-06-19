@@ -18,6 +18,8 @@ Route::group('v1', function () {
         Route::any('register', 'api/UserController/register');
         //登录
         Route::any('login', 'api/UserController/login');
+        //信息
+        Route::any('profile', 'api/UserController/getProfile');
         //关注
         Route::any('followings', 'api/UserController/getFollowing');
     });

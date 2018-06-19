@@ -39,5 +39,4 @@ class User extends Model
             'following_id',
             'uid');
     }
-
 }

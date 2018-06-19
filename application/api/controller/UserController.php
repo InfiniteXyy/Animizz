@@ -19,9 +19,12 @@ class UserController extends Controller
      * @param $uid
      * @throws \think\exception\DbException
      */
-    public function getInfo($uid)
-    {
-        s('success', User::get($uid));
+    public function getProfile($uid) {
+        $user = User::get($uid);
+        if (!$user)
+            e(1, 'user not found');
+        else
+            s('success', $user);
     }
 
     public function register()
