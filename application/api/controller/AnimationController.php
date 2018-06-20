@@ -38,6 +38,10 @@ class AnimationController
 
     public function addComment(User $user)
     {
+        if (!(new Comment())->where('user_id', $user->uid)
+            ->where('animation_id', $_POST['animation_id'])
+            ->select()->isEmpty())
+            e(1, 'you have commented');
         $_POST['user_id'] = $user->uid;
         $comment = new Comment();
         $comment->allowField(['user_id', 'animation_id', 'content', 'rate'])->save($_POST);
@@ -50,6 +54,9 @@ class AnimationController
         if (!$animation)
             e(1, 'animation not found');
         $animation->comments;
+        foreach ($animation['comments'] as $item) {
+            $item['user'] = User::get($item['user_id']);
+        }
         s('success', $animation);
     }
 }

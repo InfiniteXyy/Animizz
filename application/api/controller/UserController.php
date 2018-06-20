@@ -23,6 +23,13 @@ use think\process\exception\Timeout;
 
 class UserController extends Controller
 {
+
+    /**
+     * @throws \think\exception\DbException
+     */
+    public function getAll() {
+        s('success', User::all());
+    }
     /**
      * @param $uid
      * @throws \think\exception\DbException

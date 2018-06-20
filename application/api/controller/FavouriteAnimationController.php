@@ -31,12 +31,10 @@ class FavouriteAnimationController
     public function delete($id)
     {
         $favourite_ani = FavouriteAnimation::get($id);
-        if (is_null($id))
+        if (!$favourite_ani)
             e('1', 'No such favourite animation!');
         $favourite_ani->delete();
         s('delete success!');
-
-
     }
 
     /**

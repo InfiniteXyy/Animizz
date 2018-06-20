@@ -13,12 +13,14 @@ use think\facade\Route;
 
 Route::group('v1', function () {
     //上传（不需验证）
-    Route::group('upload', function(){
+    Route::group('upload', function () {
         Route::any('image', 'api/UploadController/image');
     });
 
     //用户（不需验证）
     Route::group('user', function () {
+        //获得全部
+        Route::any('all', 'api/UserController/getAll');
         //注册
         Route::any('register', 'api/UserController/register');
         //登录
@@ -30,8 +32,8 @@ Route::group('v1', function () {
         //粉丝列表
         Route::any('fans', 'api/UserController/getFollowed');
         //标签
-        Route::group('tag',function (){
-            Route::any('get','api/UserController/getTag');
+        Route::group('tag', function () {
+            Route::any('get', 'api/UserController/getTag');
         });
         //想看动画或已看动画
         Route::post('animation','api/UserController/animationStatus');
@@ -87,12 +89,16 @@ Route::group('v1', function () {
         Route::any('delete', 'api/FavouriteAnimationController/delete');
     });
     //查看喜爱的动画（不需要验证）
-    Route::group('favourite_animation',function (){
-        Route::any('get','api/FavouriteAnimationController/get');
+    Route::group('favourite_animation', function () {
+        Route::any('get', 'api/FavouriteAnimationController/get');
     });
-    //查看收藏清单（无需验证）
-    Route::group('favourite',function (){
-        Route::any('get','api/UserFavourController/get');
+    //收藏清单（无需验证）
+    Route::group('favourite', function () {
+        Route::any('get', 'api/UserFavourController/get');
+    });
+    //收藏清单（需验证）
+    Route::group('favourite', function () {
+        Route::any('update', 'api/UserFavourController/setTitle');
     });
 
 });

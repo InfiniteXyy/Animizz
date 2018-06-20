@@ -49,6 +49,17 @@ class UserFavourController extends Controller
                 $item->animation;
         }
         s('success', $favourites);
+    }
 
+    /**
+     * @param User $user
+     * @throws \think\exception\DbException
+     */
+    public function setTitle(User $user)
+    {
+        $list = Favourite::get($_POST['id']);
+        $list->title = $_POST['title'];
+        $list->save();
+        s('success', $list);
     }
 }
