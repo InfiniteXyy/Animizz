@@ -24,7 +24,7 @@
   <el-row :gutter="12">
     <el-col :span="4" v-for="anime in watchingList" :key="anime.a_id">
       <el-popover placement="right" width="270" trigger="hover" :title="anime.title">
-        <popup :data='anime'></popup>
+        <el-button disabled size='mini' type="info">正在观看</el-button>
         <el-card shadow="never" :body-style="{ padding: '0px' }" slot="reference">
           <img :src="anime.posterUrl" style="width:100%; margin-bottom: -10px;" @click="clickAnime(anime)" alt="image">
         </el-card>
