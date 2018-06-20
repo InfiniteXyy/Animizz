@@ -62,4 +62,18 @@ class UserFavourController extends Controller
         $list->save();
         s('success', $list);
     }
+
+    /**
+     * @param User $user
+     * @throws \think\exception\DbException
+     */
+    public function delete(User $user)
+    {
+        $list = Favourite::get($_POST['id']);
+        if (!$list) {
+            e(1, 'list not found');
+        }
+        $list->delete();
+        s('delete success');
+    }
 }

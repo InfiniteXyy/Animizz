@@ -13,7 +13,9 @@ use think\Model;
  */
 class Follow extends Model{
     public function toUser() {
-       return $this->belongsTo('User', 'following_id', 'uid')->field('username, avatar, status');
+       return $this
+           ->belongsTo('User', 'following_id', 'uid')
+           ->field('username, avatar, status');
     }
     public function fromUser() {
         return $this->belongsTo('User', 'user_id', 'uid')->field('username, avatar, status');

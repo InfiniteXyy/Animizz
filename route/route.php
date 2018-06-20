@@ -100,6 +100,7 @@ Route::group('v1', function () {
     //收藏清单（需验证）
     Route::group('favourite', function () {
         Route::any('update', 'api/UserFavourController/setTitle');
+        Route::any('delete', 'api/UserFavourController/delete');
     });
 
 });

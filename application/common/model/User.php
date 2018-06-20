@@ -30,6 +30,10 @@ class User extends Model
         return $this->api_token;
     }
 
+    public function tags() {
+        $this->hasMany('UserTag', 'uid', 'user_id');
+    }
+
     public function updateLastActive(){
         $this->last_active = time();
     }
