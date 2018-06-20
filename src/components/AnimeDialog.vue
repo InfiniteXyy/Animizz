@@ -83,7 +83,11 @@ export default {
         api_token: info.apiToken
       }
       http.post('animation/add_comment', postParam).then((res) => {
-        console.log(res.data)
+        this.$notify({
+          title: '成功',
+          message: '评论成功！',
+          type: 'success'
+        })
       })
     },
     loadComments () {

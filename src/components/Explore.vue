@@ -21,6 +21,16 @@
   <b class="title">正在观看
     <span class="sub-title">More</span>
   </b>
+  <el-row :gutter="12">
+    <el-col :span="4" v-for="anime in watchingList" :key="anime.a_id">
+      <el-popover placement="right" width="270" trigger="hover" :title="anime.title">
+        <popup :data='anime'></popup>
+        <el-card shadow="never" :body-style="{ padding: '0px' }" slot="reference">
+          <img :src="anime.posterUrl" style="width:100%; margin-bottom: -10px;" @click="clickAnime(anime)" alt="image">
+        </el-card>
+      </el-popover>
+    </el-col>
+  </el-row>
   <b class="title">我的关注
     <span class="sub-title">More</span>
   </b>
@@ -32,6 +42,7 @@
 
 <script>
 import http from '../utils/http.js'
+import info from '../utils/global.js'
 import anim from './AnimeDialog.vue'
 import popup from './AnimePopup.vue'
 
@@ -39,6 +50,7 @@ export default {
   data () {
     return {
       trendingList: [],
+      watchingList: [],
       commentDialogVisible: false,
       animeDialogVisible: false,
       curAnime: ''
@@ -46,6 +58,7 @@ export default {
   },
   mounted () {
     this.getData()
+    this.loadIsWatching()
   },
   methods: {
     async getData () {
@@ -59,6 +72,14 @@ export default {
     clickAnime (anime) {
       this.curAnime = anime
       this.animeDialogVisible = true
+    },
+    loadIsWatching () {
+      http.get('user/animation_is_watching', {uid: info.uid}).then((res) => {
+        this.watchingList = []
+        res.data.forEach(element => {
+          this.watchingList.push(element.animation)
+        })
+      })
     }
   },
   components: {

@@ -15,11 +15,10 @@
       </keep-alive>
     </el-main>
   </el-container>
-
   <div class="recommand">
     <h1 style="margin:16px">用户列表</h1>
     <div v-for="single in userList" :key="single.id" style="height: 80px">
-      <img class="avatar" :src="single.avatar">
+      <img class="avatar" @click="follow(single)" :src="single.avatar">
       <b class="username"><span>{{single.username}}</span></b>
     </div>
   </div>
@@ -33,6 +32,7 @@ import library from '@/components/Library.vue'
 import group from '@/components/Group.vue'
 import profile from '@/components/Profile.vue'
 import http from '../utils/http.js'
+import info from '../utils/global.js'
 
 export default {
   data () {
@@ -50,6 +50,15 @@ export default {
     loadUser () {
       http.get('user/all', {}).then((res) => {
         this.userList = res.data
+      })
+    },
+    follow (single) {
+      http.post('user/follow', {
+        uid: info.uid,
+        api_token: info.apiToken,
+        following_id: single.uid
+      }).then((res) => {
+        this.$message({ message: res.msg })
       })
     }
   },
@@ -75,24 +84,28 @@ export default {
     padding: 0 0;
     margin: 0 0;
   }
+
   .recommand {
     width: 240px;
     height: 500px;
     background: white;
     margin-left: 20px;
   }
+
   .avatar {
-  width: 40px;
-  height: 40px;
-  margin-top: 20px;
-  margin: 0 16px;
-  border-radius: 50%;
-}
-.username {
-  font-size: 17px;
-  display: flex;
-  float: right;
-  margin-top: 15px;
-  margin-right: 50px;
-}
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    margin-top: 20px;
+    margin: 0 16px;
+    border-radius: 50%;
+  }
+
+  .username {
+    font-size: 17px;
+    display: flex;
+    float: right;
+    margin-top: 15px;
+    margin-right: 50px;
+  }
 </style>
