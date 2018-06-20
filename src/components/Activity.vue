@@ -1,9 +1,10 @@
 <template>
-<div>
+<div v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="50">
   <el-input type="textarea" :rows="4" placeholder="请输入内容" v-model="textarea">
   </el-input>
+  <el-checkbox v-model="exceptMe" style="float: left; margin-top: 30px">隐藏自己的动态</el-checkbox>
   <el-button class="button" size="mini" @click="sendMoment()">发送</el-button>
-  <el-button class="button" size="mini" type="primary" @click="load()" style="margin-right:10px">刷新</el-button>
+  <el-button class="button" size="mini" type="primary" @click="reload()" style="margin-right:10px">刷新</el-button>
   <div id="momentList">
     <div class="moment" v-for="data in moments" :key="data.id">
       <div class="wrapper">
@@ -29,7 +30,9 @@ export default {
     return {
       textarea: '',
       moments: [],
-      page: 1
+      page: 0,
+      busy: false,
+      exceptMe: false
     }
   },
   methods: {
@@ -37,25 +40,24 @@ export default {
       let date = new Date(dateValue * 1000)
       return moment(date).calendar()
     },
-    load () {
-      this.page = 1
-      this.moments = []
-      http.get('moment/get', {}).then(
-        (res) => {
-          for (let i of res.data) {
-            this.moments.push(i)
-          }
-        }
-      )
-    },
     loadMore () {
+      this.busy = true
       this.page += 1
-      http.get('moment/get', {page: this.page}).then((res) => {
-        console.log(res)
+      if (this.page >= 3) {
+        this.busy = true
+        return
+      }
+      http.post('moment/get', {page: this.page, uid: info.uid, exceptMe: this.exceptMe ? 1 : 0}).then((res) => {
         for (let i of res.data) {
           this.moments.push(i)
         }
+        this.busy = false
       })
+    },
+    reload () {
+      this.page = 0
+      this.moments = []
+      this.busy = false
     },
     sendMoment () {
       let postData = {
@@ -78,7 +80,7 @@ export default {
     }
   },
   mounted () {
-    this.load()
+
   }
 }
 </script>

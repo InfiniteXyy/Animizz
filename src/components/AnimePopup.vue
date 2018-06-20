@@ -20,7 +20,7 @@ export default {
   },
   methods: {
     rate (a) {
-      return '评分: ' + (a.rate / 100 * 5).toFixed(2)
+      return '评分: ' + (a.rate).toFixed(2)
     },
     updateStatus (status) {
       http.post('user/animation', {uid: info.uid, status: status, animation_id: this.data.id}).then((res) => {

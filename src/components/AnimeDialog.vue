@@ -84,9 +84,9 @@ export default {
       }
       http.post('animation/add_comment', postParam).then((res) => {
         this.$notify({
-          title: '成功',
-          message: '评论成功！',
-          type: 'success'
+          title: res.code === 200 ? '成功' : '失败',
+          message: res.msg,
+          type: res.code === 200 ? 'success' : 'error'
         })
       })
     },
@@ -103,7 +103,7 @@ export default {
   },
   computed: {
     rate () {
-      return Number((this.anime.rate / 100 * 5).toFixed(2))
+      return Number((this.anime.rate).toFixed(2))
     }
   },
   props: ['anime'],

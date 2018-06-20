@@ -16,7 +16,7 @@
     </el-main>
   </el-container>
   <div class="recommand">
-    <h1 style="margin:16px">用户列表</h1>
+    <h1 style="margin:16px">全部用户</h1>
     <div v-for="single in userList" :key="single.id" style="height: 80px">
       <el-popover
         placement="left-start"

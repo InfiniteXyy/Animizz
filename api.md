@@ -6,11 +6,11 @@
 1. 中文使用UTF-8编码
 
 ### API 访问说明
-所有访问地址为 `http://localhost:8080/animizz/...`
+所有访问地址为 `http://api.infinitex.cn/v1/...`
 
 ### 用户 API
 **得到某个指定的用户**
-GET `http://localhost:8080/animizz/user/100001`
+GET `http://api.infinitex.cn/v1/user/100001`
 
 ```json
 {
@@ -32,7 +32,7 @@ GET `http://localhost:8080/animizz/user/100001`
 }
 ```
 **搜索用户**
-GET `http://localhost:8080/animizz/user?name=xyy`
+GET `http://api.infinitex.cn/v1/user?name=xyy`
 ```json
 {
     "count": "10",
@@ -42,7 +42,7 @@ GET `http://localhost:8080/animizz/user?name=xyy`
 }
 ```
 **注册用户**
-POST `http://localhost:8080/animizz/user/`
+POST `http://api.infinitex.cn/v1/user/`
 ```json
 {
     "email": "727160222@qq.com",
@@ -57,10 +57,10 @@ return
 }
 ```
 **修改用户**
-PUT `http://localhost:8080/animizz/user/100001`
+PUT `http://api.infinitex.cn/v1/user/100001`
 
 ### 期望单 API
-GET `http://localhost:8080/animizz/list/12345`
+GET `http://api.infinitex.cn/v1/list/12345`
 ```json
 {
     "id": "12345",
@@ -76,7 +76,7 @@ GET `http://localhost:8080/animizz/list/12345`
 ```
 
 ### 动漫API
-GET `http://localhost:8080/animizz/animation/1`
+GET `http://api.infinitex.cn/v1/animation/1`
 ```json
 {
     "id": "1",
@@ -88,7 +88,7 @@ GET `http://localhost:8080/animizz/animation/1`
 ```
 
 ### 动态API
-GET `http://localhost:8080/animizz/moment?limit=1&offset=0`
+GET `http://api.infinitex.cn/v1/moment?limit=1&offset=0`
 
 ```json
 {
@@ -102,7 +102,7 @@ GET `http://localhost:8080/animizz/moment?limit=1&offset=0`
 }
 ```
 ### CV API
-GET `http://localhost:8080/animizz/moment?limit=1&offset=0`
+GET `http://api.infinitex.cn/v1/moment?limit=1&offset=0`
 
 ```json
 {
@@ -117,7 +117,7 @@ GET `http://localhost:8080/animizz/moment?limit=1&offset=0`
 }
 ```
 ### 剧集 API
-GET `http://localhost:8080/animizz/animation/episode/1`
+GET `http://http://api.infinitex.cn/v1/animation/episode/1`
 
 ```json
 {
@@ -132,7 +132,7 @@ GET `http://localhost:8080/animizz/animation/episode/1`
 ```
 
 ### CV API
-GET `http://localhost:8080/animizz/cv/1`
+GET `http://api.infinitex.cn/v1/cv/1`
 
 ```json
 {
