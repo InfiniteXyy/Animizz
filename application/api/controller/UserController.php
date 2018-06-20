@@ -265,7 +265,7 @@ class UserController extends Controller
     }
 
     public function getIsWatchingList($uid) {
-        $list = (new UserAnimation())->where('user_id', $uid)->select();
+        $list = (new UserAnimation())->where('user_id', $uid)->where('status', 1)->select();
         foreach ($list as $item) {
             $item->animation;
         }
