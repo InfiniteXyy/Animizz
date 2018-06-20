@@ -8,6 +8,7 @@
 
 namespace app\api\controller;
 
+use app\common\model\Follow;
 use app\common\model\Moment;
 use app\common\model\User;
 use app\common\validate\MomentValidate;
@@ -43,14 +44,28 @@ class MomentController
 
     /**
      * @param int $page
+     * @param bool $exceptMe
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\ModelNotFoundException
      * @throws \think\exception\DbException
      */
-    public function get($page = 1)
+    public function get($page = 1, $exceptMe = false)
     {
         $momentBuilder = (new Moment());
-        $moments = $momentBuilder->order('time', 'desc')->page($page, 6)->select();
+        $followings = (new Follow())->where('user_id', $_POST['uid'])->select();
+        $i = 0;
+        $num = array();
+        if (!$exceptMe)
+            $num[$i++] = $_POST['uid'];
+        foreach ($followings as $following) {
+            $num[$i++] = $following['following_id'];
+        }
+
+        $moments = $momentBuilder
+            ->whereIn('user_id', $num)
+            ->order('time', 'desc')
+            ->page($page, 6)
+            ->select();
         foreach ($moments as $moment) {
             $moment->user;
         }
