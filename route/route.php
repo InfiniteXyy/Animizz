@@ -37,6 +37,8 @@ Route::group('v1', function () {
         });
         //想看动画或已看动画
         Route::post('animation','api/UserController/animationStatus');
+        //查看状态
+        Route::get('animation','api/UserController/getStatus');
         //得到正在观看的列表
         Route::any('animation_is_watching','api/UserController/getIsWatchingList');
     });

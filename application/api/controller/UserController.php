@@ -255,13 +255,23 @@ class UserController extends Controller
             $animation_name = $animation['title'];
             if ($status == 0)
                 $_POST['content'] = '我想看  ' . $animation_name . '。';
-            if ($status == 2)
+            else if ($status == 2)
                 $_POST['content'] = '我看过了  ' . $animation_name . '。';
-            if ($status == 1)
+            else if ($status == 1)
                 $_POST['content'] = '我正在看  ' . $animation_name . '。';
             $moment->allowField(['user_id', 'time', 'content'])->save($_POST);
             s('success', $moment);
         }
+    }
+
+    public function getStatus($uid, $animation_id) {
+        $status = (new UserAnimation())
+            ->where('user_id', $uid)
+            ->where('animation_id', $animation_id)
+            ->select();
+        if ($status->isEmpty())
+            s('success', -1);
+        s('success', $status[0]['status']);
     }
 
     public function getIsWatchingList($uid) {
