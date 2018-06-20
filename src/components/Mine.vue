@@ -18,7 +18,14 @@
   <div class="recommand">
     <h1 style="margin:16px">用户列表</h1>
     <div v-for="single in userList" :key="single.id" style="height: 80px">
-      <img class="avatar" @click="follow(single)" :src="single.avatar">
+      <el-popover
+        placement="left-start"
+        title="标签"
+        width="200"
+        trigger="hover">
+        <img class="avatar" slot="reference" @click="follow(single)" :src="single.avatar">
+        <el-tag style="margin-right: 12px" :key="tag.tag" v-for="tag in single.tags" :disable-transitions="false">{{tag.tag}}</el-tag>
+      </el-popover>
       <b class="username"><span>{{single.username}}</span></b>
     </div>
   </div>
@@ -49,7 +56,12 @@ export default {
     },
     loadUser () {
       http.get('user/all', {}).then((res) => {
-        this.userList = res.data
+        for (let user of res.data) {
+          http.get('user/tag/get', {uid: user.uid}).then((res2) => {
+            user.tags = res2.data
+          })
+        }
+        setTimeout(() => { this.userList = res.data }, 1000)
       })
     },
     follow (single) {

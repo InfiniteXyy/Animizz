@@ -11,7 +11,7 @@
     </el-submenu>
 
     <el-menu-item index="mine">我的</el-menu-item>
-    <el-menu-item index="group">群组</el-menu-item>
+    <!-- <el-menu-item index="group">群组</el-menu-item> -->
     <div class="menu-wrapper" style="float: right">
       <el-dropdown trigger="click" @command="click_item">
         <img class="avatar" :src="info.profile.avatar">
@@ -21,14 +21,14 @@
         </el-dropdown-menu>
       </el-dropdown>
     </div>
-    <div class="menu-wrapper" style="float: right; margin: 16px 0px; padding: 0 0">
+    <!-- <div class="menu-wrapper" style="float: right; margin: 16px 0px; padding: 0 0">
       <el-button type="info" icon="el-icon-bell" circle size="mini"></el-button>
-    </div>
-    <div class="menu-wrapper" style="float: right">
+    </div> -->
+    <!-- <div class="menu-wrapper" style="float: right">
       <el-input v-model="search" placeholder="Search Animizz">
         <i slot="prefix" class="el-input__icon el-icon-search"></i>
       </el-input>
-    </div>
+    </div> -->
   </el-menu>
   <el-dialog title="个人信息" :visible.sync="dialogVisible" width="60%">
     <el-form ref="form" :model="form" label-width="120px">

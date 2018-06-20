@@ -2,6 +2,7 @@
 <div>
   <h1>{{curFavourite.title}}
     <span style="float: right" id="switch" @click="dialogVisible=true">切换</span>
+    <span style="float: right; margin-right: 20px" id="switch" @click="addDialogVisible=true">增加</span>
   </h1>
   <el-table :data="curFavourite.favouriteAnimation" :highlight-current-row="true">
     <el-table-column prop="animation.title" label="标题"></el-table-column>
@@ -35,7 +36,14 @@
       </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
-      <el-button type="primary" @click="updateTable">确 定</el-button>
+        <el-button size="mini" type="primary" @click="deleteTable">删表</el-button>
+        <el-button size="mini" type="error" @click="updateTable">改名</el-button>
+    </span>
+  </el-dialog>
+  <el-dialog title="增加" :visible.sync="addDialogVisible" width="30%">
+    <el-input v-model="addDialogTitle"></el-input>
+    <span slot="footer" class="dialog-footer">
+      <el-button type="primary" @click="addTable">增 加</el-button>
     </span>
   </el-dialog>
 </div>
@@ -52,7 +60,9 @@ export default {
       curFavourite: {title: '加载中...', favouriteAnimation: []},
       tempFavourite: '',
       dialogVisible: false,
+      addDialogVisible: false,
       setDialogVisible: false,
+      addDialogTitle: '',
       listForm: {title: ''}
     }
   },
@@ -62,7 +72,6 @@ export default {
       for (let i of this.favourList) {
         if (i.title === this.tempFavourite) {
           this.curFavourite = i
-          console.log(this.curFavourite.favouriteAnimation)
           return
         }
       }
@@ -88,6 +97,30 @@ export default {
       http.get('favourite/get', {uid: info.uid}).then((res) => {
         this.favourList = res.data
         this.handleSelect()
+      })
+    },
+    addTable () {
+      http.post('favourite/create', {uid: info.uid, api_token: info.apiToken, title: this.addDialogTitle})
+        .then((res) => {
+          this.getList()
+          this.addDialogVisible = false
+        })
+    },
+    deleteTable () {
+      http.post('favourite/delete', {
+        uid: info.uid,
+        api_token: info.apiToken,
+        id: this.curFavourite.id
+      }).then((res) => {
+        if (res.code === 200) {
+          this.$notify({
+            title: '成功',
+            message: '删除了',
+            type: 'success'
+          })
+          this.setDialogVisible = false
+          this.getList()
+        }
       })
     },
     updateTable () {
