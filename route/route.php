@@ -33,6 +33,8 @@ Route::group('v1', function () {
         Route::group('tag',function (){
             Route::any('get','api/UserController/getTag');
         });
+        //想看动画或已看动画
+        Route::post('animation','api/UserController/animationStatus');
     });
 
     //用户（需验证）
@@ -43,13 +45,13 @@ Route::group('v1', function () {
         Route::any('follow', 'api/UserController/follow');
         //取消关注
         Route::any('unfollow', 'api/UserController/unfollow');
-       Route::group('tag',function () {
+        Route::group('tag',function () {
            //添加标签
-           Route::any('create', 'api/UserController/addTag');
+            Route::any('create', 'api/UserController/addTag');
            //删除标签
-           Route::any('delete', 'api/UserController/deleteTag');
-       }
-    );
+            Route::any('delete', 'api/UserController/deleteTag');
+       });
+
     })->middleware('apiAuth');
 
     //动漫（不需验证）

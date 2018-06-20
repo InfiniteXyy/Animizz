@@ -9,7 +9,10 @@
 namespace app\api\controller;
 
 
+use app\common\model\Animation;
 use app\common\model\Follow;
+use app\common\model\Moment;
+use app\common\model\UserAnimation;
 use app\common\model\UserTag;
 use app\common\model\User;
 use app\common\validate\UserValidate;
@@ -153,11 +156,12 @@ class UserController extends Controller
         s('success');
     }
 
-    public function addTag(User $user,$tag){
+    public function addTag(User $user, $tag)
+    {
         $userTag = new UserTag();
         $_POST['user_id'] = $user->uid;
         $_POST['tag'] = $tag;
-        $userTag->allowField(['user_id','tag'])->save($_POST);
+        $userTag->allowField(['user_id', 'tag'])->save($_POST);
         s('success!');
     }
 
@@ -168,11 +172,12 @@ class UserController extends Controller
      * @throws \think\db\exception\ModelNotFoundException
      * @throws \think\exception\DbException
      */
-    public function deleteTag(User $user, $tag){
-        $tagToDelete = (new UserTag())->where('user_id',$user->uid)
-    ->where('tag',$tag)->select();
-        if ($tagToDelete->isEmpty()){
-            e(1,'You do not have this tag!');
+    public function deleteTag(User $user, $tag)
+    {
+        $tagToDelete = (new UserTag())->where('user_id', $user->uid)
+            ->where('tag', $tag)->select();
+        if ($tagToDelete->isEmpty()) {
+            e(1, 'You do not have this tag!');
         }
         $tagToDelete->pop()->delete();
         s('success');
@@ -184,9 +189,54 @@ class UserController extends Controller
      * @throws \think\db\exception\ModelNotFoundException
      * @throws \think\exception\DbException
      */
-    public function getTag($uid){
-        $tags =(new UserTag())->where('user_id',$uid)->select();
-        s('success',$tags);
+    public function getTag($uid)
+    {
+        $tags = (new UserTag())->where('user_id', $uid)->select();
+        s('success', $tags);
+    }
+
+
+    /**
+     * @param User $user
+     * @param $status
+     * @param $animation_id
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     */
+    /**
+     * @param $uid
+     * @param $status
+     * @param $animation_id
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     */
+    public function animationStatus($uid, $status, $animation_id)
+    {
+
+        $user_animations = (new UserAnimation())->where('user_id', $uid)
+            ->where('animation_id', $animation_id)->select();
+        if ($user_animations->isEmpty()) {
+            $userAnimationRecord = new UserAnimation();
+            $_POST['user_id'] = $uid;
+
+            $userAnimationRecord->allowField(['user_id', 'animation_id', 'status'])
+                ->save($_POST);
+
+            $moment = new Moment();
+            $_POST['time'] = time();
+            $animation = Animation::get($animation_id);
+            $animation_name = $animation->value('title');
+
+            if ($status == 1)
+                $_POST['content'] = '我想看' . $animation_name . '。';
+            else if ($status == 2)
+                $_POST['content'] = '我看过了'. $animation_name . '。';
+            $moment->allowField(['user_id', 'time', 'content'])->save($_POST);
+            s('success', $moment);
+        }
+
     }
 
 }
