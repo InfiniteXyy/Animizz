@@ -13,5 +13,8 @@ use think\Model;
 
 class UserAnimation extends Model
 {
+    public function animation() {
+        return $this->belongsTo('Animation', 'animation_id', 'id');
+    }
 
 }

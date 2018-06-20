@@ -37,6 +37,8 @@ Route::group('v1', function () {
         });
         //想看动画或已看动画
         Route::post('animation','api/UserController/animationStatus');
+        //得到正在观看的列表
+        Route::any('animation_is_watching','api/UserController/getIsWatchingList');
     });
 
     //用户（需验证）
@@ -81,7 +83,6 @@ Route::group('v1', function () {
     Route::group('moment', function () {
         Route::any('get', 'api/MomentController/get');
     });
-
 
     //喜爱的动画（需验证）
     Route::group('favourite_animation', function () {
