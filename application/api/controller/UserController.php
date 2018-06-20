@@ -234,7 +234,7 @@ class UserController extends Controller
             $moment = new Moment();
             $_POST['time'] = time();
             $animation = Animation::get($animation_id);
-            $animation_name = $animation->value('title');
+            $animation_name = $animation['title'];
 
             if ($status == 0)
                 $_POST['content'] = '我想看  ' . $animation_name . '。';
@@ -252,7 +252,7 @@ class UserController extends Controller
             $moment = new Moment();
             $_POST['time'] = time();
             $animation = Animation::get($animation_id);
-            $animation_name = $animation->value('title');
+            $animation_name = $animation['title'];
             if ($status == 0)
                 $_POST['content'] = '我想看  ' . $animation_name . '。';
             if ($status == 2)
